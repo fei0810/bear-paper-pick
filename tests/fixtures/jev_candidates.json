@@ -1,0 +1,13 @@
+[
+  {
+    "id": "PUBLIC_CONTRACT_SMOKE_1",
+    "doi": "10.0000/paper-radar-public-contract-smoke",
+    "title": "Synthetic public screening contract record",
+    "year": 2026,
+    "venue": "Paper Radar test fixture",
+    "abstract": "This English abstract describes a transparent screening workflow for public scholarly records. The workflow stores bounded decisions in an audit trail and does not require full text or private data.",
+    "abstract_language": "en",
+    "channel": "fixture:public-contract",
+    "cites_seed": null
+  }
+]

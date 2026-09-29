@@ -1,0 +1,25 @@
+# Local credentials and per-machine settings
+.env
+.env.*
+!.env.example
+
+# Python runtime artifacts
+__pycache__/
+*.py[cod]
+
+# Run state that should live outside the skill folder
+paper-radar-data/
+*.lock
+.paper-radar-*.tmp
+
+# Build outputs and OS metadata
+*.tar.gz
+.DS_Store
+
+# Local integration and development outputs
+.local-workspace.md
+bear-sift-data/
+.venv/
+.pytest_cache/
+coverage/
+dist/

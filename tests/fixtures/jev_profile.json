@@ -1,0 +1,27 @@
+{
+  "schema_version": "paper-radar-profile-v1",
+  "line_name": "public_contract_smoke",
+  "seed_ids": [
+    "W_PUBLIC_SMOKE"
+  ],
+  "positive_axes": [
+    {
+      "id": "transparent_screening",
+      "description": "Uses a transparent, auditable screening workflow for scholarly records."
+    }
+  ],
+  "negative_axes": [
+    {
+      "id": "full_text_requirement",
+      "description": "Requires full text or private data for the claimed decision."
+    }
+  ],
+  "logical_form": "Apply a bounded structured decision to a public record while retaining an audit trail.",
+  "layer_targets": {
+    "core": "2-4",
+    "adjacent": "2-3",
+    "cross_domain": "0-2",
+    "canonical": "1-2"
+  },
+  "language": "en"
+}

@@ -1,0 +1,2264 @@
+[
+  {
+    "answers": {
+      "layer": {
+        "type": "choice",
+        "choice": "adjacent",
+        "confidence": 0.38,
+        "probabilities": {
+          "core": 0.19,
+          "adjacent": 0.48,
+          "cross_domain": 0.29,
+          "canonical": 0.0,
+          "exclude": 0.03,
+          "insufficient": 0.01
+        }
+      },
+      "fit": {
+        "type": "score",
+        "score": 1.84,
+        "confidence": 0.36,
+        "legend": {
+          "0": "0: no supported fit or insufficient information",
+          "1": "1: weak or indirect fit",
+          "2": "2: clear useful fit",
+          "3": "3: direct, high-value fit to a defined positive axis"
+        },
+        "probabilities": {
+          "0": 0.01,
+          "1": 0.37,
+          "2": 0.38,
+          "3": 0.24
+        }
+      },
+      "match_axis": {
+        "type": "choice",
+        "choice": "agents",
+        "confidence": 0.61,
+        "probabilities": {
+          "agents": 0.71,
+          "evaluation": 0.24,
+          "transfer": 0.0,
+          "none": 0.05
+        }
+      },
+      "negative_conflict": {
+        "type": "noul",
+        "noul": 0.08
+      },
+      "evidence_readiness": {
+        "type": "choice",
+        "choice": "abstract_enough",
+        "confidence": 0.91,
+        "probabilities": {
+          "abstract_enough": 0.94,
+          "needs_full_text": 0.04,
+          "insufficient": 0.02
+        }
+      },
+      "support_sentence": {
+        "type": "choice",
+        "choice": "s4",
+        "confidence": 0.2,
+        "probabilities": {
+          "s1": 0.0,
+          "s2": 0.16,
+          "s3": 0.0,
+          "s4": 0.24,
+          "s5": 0.01,
+          "s6": 0.07,
+          "s7": 0.0,
+          "s8": 0.01,
+          "s9": 0.0,
+          "s10": 0.01,
+          "s11": 0.18,
+          "s12": 0.0,
+          "s13": 0.04,
+          "s14": 0.03,
+          "none": 0.25
+        }
+      },
+      "analogy_status": {
+        "type": "choice",
+        "choice": "adapt",
+        "confidence": 0.52,
+        "probabilities": {
+          "direct": 0.3,
+          "adapt": 0.64,
+          "not_analogy": 0.06,
+          "insufficient": 0.0
+        }
+      },
+      "transfer_boundary": {
+        "type": "choice",
+        "choice": "needs_adaptation",
+        "confidence": 0.68,
+        "probabilities": {
+          "direct_borrow": 0.14,
+          "needs_adaptation": 0.76,
+          "do_not_transfer": 0.08,
+          "insufficient": 0.02
+        }
+      }
+    },
+    "questions": {
+      "layer": {
+        "type": "choice",
+        "instructions": "Classify the candidate's role against `profile` using only the public title and English abstract in `candidate`. Choose insufficient whenever the abstract cannot support the judgment.",
+        "criteria": {
+          "core": "Directly advances the profile's central research question, object, or method.",
+          "adjacent": "Useful neighboring method, evidence, or framing without being a direct match.",
+          "cross_domain": "A potentially transferable research structure from another domain; it requires later human review.",
+          "canonical": "A foundational or historical work useful for context, not a current direct match.",
+          "exclude": "Outside the profile or contradicted by its negative axes.",
+          "insufficient": "The title and abstract do not support a bounded layer judgment."
+        }
+      },
+      "fit": {
+        "type": "score",
+        "instructions": "Rate direct fit to `profile` using only `candidate`. This is not a paper-quality score.",
+        "criteria": [
+          "0: no supported fit or insufficient information",
+          "1: weak or indirect fit",
+          "2: clear useful fit",
+          "3: direct, high-value fit to a defined positive axis"
+        ]
+      },
+      "match_axis": {
+        "type": "choice",
+        "instructions": "Which one positive profile axis is best supported by `candidate`? Choose none when no axis is supported.",
+        "criteria": {
+          "agents": "Tool-using language-model agents for chemistry research and reproducible scientific workflows, including experimental planning, execution and evidence integration.",
+          "evaluation": "Reliable evaluation and structured evidence retrieval for scientific agents, including chemistry prediction as an adjacent component.",
+          "transfer": "Transfer of explicit hypothesis-experiment-feedback loops from autonomous laboratories and other empirical sciences into chemistry research agents.",
+          "none": "No positive profile axis is supported by the provided title and abstract."
+        }
+      },
+      "negative_conflict": {
+        "type": "noul",
+        "instructions": {
+          "question": "Does `candidate` materially conflict with any configured negative profile axis?",
+          "negative_axes": [
+            {
+              "id": "off_scope",
+              "description": "Generic NLP sentiment analysis or software vulnerability classification without a scientific research workflow or empirical discovery loop."
+            }
+          ]
+        },
+        "criteria": {
+          "true": "A stated negative axis is materially implicated.",
+          "false": "No material negative-axis conflict is supported by the abstract."
+        }
+      },
+      "evidence_readiness": {
+        "type": "choice",
+        "instructions": "Is the English abstract sufficient for a limited recommendation rationale? This does not verify methods, results, identities, or factual claims.",
+        "criteria": {
+          "abstract_enough": "The abstract supports only a bounded relevance statement.",
+          "needs_full_text": "The candidate may be relevant, but the required rationale needs source text beyond the abstract.",
+          "insufficient": "The abstract does not support a relevance statement."
+        }
+      },
+      "support_sentence": {
+        "type": "choice",
+        "instructions": "Choose the one sentence from `candidate.abstract_sentences` that best supports the bounded relevance decision. Choose none if no sentence does.",
+        "criteria": {
+          "s1": "Objective.",
+          "s2": "To develop a methodologically rigorous approach for employing large language models as an interface for accessing data from pharmacological repositories (exemplified by ChronobioticsDB).",
+          "s3": "Material and methods.",
+          "s4": "A method for integrating a large language model as an intelligent access agent for the ChronobioticsDB pharmacological database was proposed.",
+          "s5": "The approach is based on two-stage meta-prompting and does not require additional model training.",
+          "s6": "Relational database data are pre-transformed into the structured text cards, which are used as a sole source of information for the model.",
+          "s7": "A post-processing module is additionally implemented.",
+          "s8": "This module provides control over format, language and response sources.",
+          "s9": "Results.",
+          "s10": "Original system was tested on a set of queries, including factual, comparative, and data-incomplete queries.",
+          "s11": "In all cases, the agent generated correct responses based solely on ChronobioticsDB data without generating internal reasoning or unreliable information.",
+          "s12": "Conclusion.",
+          "s13": "A protocol and code for integrating the DeepSeek R1 (8B) agent into specialized pharmacology databases and clinical guidelines were developed.",
+          "s14": "This approach can be considered a promising alternative to retraining models for clinical pharmacology and other disciplines.",
+          "none": "No sentence directly supports a bounded recommendation at abstract level."
+        }
+      },
+      "analogy_status": {
+        "type": "choice",
+        "instructions": "Assess only whether `candidate` exposes a potentially transferable research structure. This never authorizes automatic cross-domain recommendation.",
+        "criteria": {
+          "direct": "A comparable structure is directly visible in the abstract.",
+          "adapt": "There may be an analogy, but domain adaptation is essential.",
+          "not_analogy": "No comparable structure is supported.",
+          "insufficient": "The abstract cannot support this judgment."
+        }
+      },
+      "transfer_boundary": {
+        "type": "choice",
+        "instructions": "If an analogy exists, which transfer boundary is supported by the abstract? This is a review routing signal, not a factual conclusion.",
+        "criteria": {
+          "direct_borrow": "The abstract supports considering a directly analogous approach.",
+          "needs_adaptation": "The abstract supports an analogy but leaves material adaptation work.",
+          "do_not_transfer": "The abstract does not support transfer.",
+          "insufficient": "The abstract cannot support a transfer boundary."
+        }
+      }
+    }
+  },
+  {
+    "answers": {
+      "layer": {
+        "type": "choice",
+        "choice": "adjacent",
+        "confidence": 0.71,
+        "probabilities": {
+          "insufficient": 0.0,
+          "cross_domain": 0.0,
+          "exclude": 0.0,
+          "adjacent": 0.76,
+          "core": 0.24,
+          "canonical": 0.0
+        }
+      },
+      "fit": {
+        "type": "score",
+        "score": 2.44,
+        "confidence": 0.44,
+        "legend": {
+          "0": "0: no supported fit or insufficient information",
+          "1": "1: weak or indirect fit",
+          "2": "2: clear useful fit",
+          "3": "3: direct, high-value fit to a defined positive axis"
+        },
+        "probabilities": {
+          "0": 0.0,
+          "1": 0.12,
+          "2": 0.31,
+          "3": 0.5700000000000001
+        }
+      },
+      "match_axis": {
+        "type": "choice",
+        "choice": "evaluation",
+        "confidence": 1.0,
+        "probabilities": {
+          "transfer": 0.0,
+          "evaluation": 1.0,
+          "none": 0.0,
+          "agents": 0.0
+        }
+      },
+      "negative_conflict": {
+        "type": "noul",
+        "noul": 0.06
+      },
+      "evidence_readiness": {
+        "type": "choice",
+        "choice": "abstract_enough",
+        "confidence": 0.97,
+        "probabilities": {
+          "insufficient": 0.0,
+          "abstract_enough": 0.99,
+          "needs_full_text": 0.01
+        }
+      },
+      "support_sentence": {
+        "type": "choice",
+        "choice": "s8",
+        "confidence": 0.29,
+        "probabilities": {
+          "s4": 0.01,
+          "s8": 0.36,
+          "s5": 0.14,
+          "s1": 0.14,
+          "s6": 0.03,
+          "s7": 0.01,
+          "none": 0.18,
+          "s3": 0.12,
+          "s2": 0.01
+        }
+      },
+      "analogy_status": {
+        "type": "choice",
+        "choice": "direct",
+        "confidence": 0.54,
+        "probabilities": {
+          "insufficient": 0.0,
+          "adapt": 0.32,
+          "direct": 0.66,
+          "not_analogy": 0.02
+        }
+      },
+      "transfer_boundary": {
+        "type": "choice",
+        "choice": "needs_adaptation",
+        "confidence": 0.63,
+        "probabilities": {
+          "insufficient": 0.03,
+          "needs_adaptation": 0.73,
+          "direct_borrow": 0.16,
+          "do_not_transfer": 0.08
+        }
+      }
+    },
+    "questions": {
+      "layer": {
+        "type": "choice",
+        "instructions": "Classify the candidate's role against `profile` using only the public title and English abstract in `candidate`. Choose insufficient whenever the abstract cannot support the judgment.",
+        "criteria": {
+          "core": "Directly advances the profile's central research question, object, or method.",
+          "adjacent": "Useful neighboring method, evidence, or framing without being a direct match.",
+          "cross_domain": "A potentially transferable research structure from another domain; it requires later human review.",
+          "canonical": "A foundational or historical work useful for context, not a current direct match.",
+          "exclude": "Outside the profile or contradicted by its negative axes.",
+          "insufficient": "The title and abstract do not support a bounded layer judgment."
+        }
+      },
+      "fit": {
+        "type": "score",
+        "instructions": "Rate direct fit to `profile` using only `candidate`. This is not a paper-quality score.",
+        "criteria": [
+          "0: no supported fit or insufficient information",
+          "1: weak or indirect fit",
+          "2: clear useful fit",
+          "3: direct, high-value fit to a defined positive axis"
+        ]
+      },
+      "match_axis": {
+        "type": "choice",
+        "instructions": "Which one positive profile axis is best supported by `candidate`? Choose none when no axis is supported.",
+        "criteria": {
+          "agents": "Tool-using language-model agents for chemistry research and reproducible scientific workflows, including experimental planning, execution and evidence integration.",
+          "evaluation": "Reliable evaluation and structured evidence retrieval for scientific agents, including chemistry prediction as an adjacent component.",
+          "transfer": "Transfer of explicit hypothesis-experiment-feedback loops from autonomous laboratories and other empirical sciences into chemistry research agents.",
+          "none": "No positive profile axis is supported by the provided title and abstract."
+        }
+      },
+      "negative_conflict": {
+        "type": "noul",
+        "instructions": {
+          "question": "Does `candidate` materially conflict with any configured negative profile axis?",
+          "negative_axes": [
+            {
+              "id": "off_scope",
+              "description": "Generic NLP sentiment analysis or software vulnerability classification without a scientific research workflow or empirical discovery loop."
+            }
+          ]
+        },
+        "criteria": {
+          "true": "A stated negative axis is materially implicated.",
+          "false": "No material negative-axis conflict is supported by the abstract."
+        }
+      },
+      "evidence_readiness": {
+        "type": "choice",
+        "instructions": "Is the English abstract sufficient for a limited recommendation rationale? This does not verify methods, results, identities, or factual claims.",
+        "criteria": {
+          "abstract_enough": "The abstract supports only a bounded relevance statement.",
+          "needs_full_text": "The candidate may be relevant, but the required rationale needs source text beyond the abstract.",
+          "insufficient": "The abstract does not support a relevance statement."
+        }
+      },
+      "support_sentence": {
+        "type": "choice",
+        "instructions": "Choose the one sentence from `candidate.abstract_sentences` that best supports the bounded relevance decision. Choose none if no sentence does.",
+        "criteria": {
+          "s1": "Abstract The capabilities of large language models (LLMs) have expanded beyond natural language processing to scientific prediction tasks, including molecular property prediction.",
+          "s2": "However, their effectiveness in in-context learning remains ambiguous, particularly given the potential for training data contamination in widely used benchmarks.",
+          "s3": "This paper investigates whether LLMs perform genuine in-context regression on molecular properties or instead rely on verbatim retrieval of memorized target values.",
+          "s4": "Furthermore, we analyze the interplay between pretrained knowledge and in-context information through a series of progressively blinded experiments.",
+          "s5": "We evaluate nine LLM variants across three families (GPT-4.1, GPT-5, Gemini 2.5) on three MoleculeNet data sets (Delaney solubility, Lipophilicity, QM7 atomization energy) using a systematic blinding approach that iteratively reduces available information, complemented by 0-, 60-, and 1000-shot in-context sample sizes as an additional control for information access.",
+          "s6": "To validate the memorization analysis and the blinding experiments, we add a positive and a negative control for the memorization experiments and structural reference baselines for the multishot experiments, as well as bootstrap confidence intervals for all results.",
+          "s7": "We find no evidence of verbatim retrieval on the legacy benchmarks and show that blinding exposes conflicts between pretrained knowledge and in-context information.",
+          "s8": "This work provides a principled framework for evaluating molecular property prediction under controlled information access.",
+          "none": "No sentence directly supports a bounded recommendation at abstract level."
+        }
+      },
+      "analogy_status": {
+        "type": "choice",
+        "instructions": "Assess only whether `candidate` exposes a potentially transferable research structure. This never authorizes automatic cross-domain recommendation.",
+        "criteria": {
+          "direct": "A comparable structure is directly visible in the abstract.",
+          "adapt": "There may be an analogy, but domain adaptation is essential.",
+          "not_analogy": "No comparable structure is supported.",
+          "insufficient": "The abstract cannot support this judgment."
+        }
+      },
+      "transfer_boundary": {
+        "type": "choice",
+        "instructions": "If an analogy exists, which transfer boundary is supported by the abstract? This is a review routing signal, not a factual conclusion.",
+        "criteria": {
+          "direct_borrow": "The abstract supports considering a directly analogous approach.",
+          "needs_adaptation": "The abstract supports an analogy but leaves material adaptation work.",
+          "do_not_transfer": "The abstract does not support transfer.",
+          "insufficient": "The abstract cannot support a transfer boundary."
+        }
+      }
+    }
+  },
+  {
+    "answers": {
+      "layer": {
+        "type": "choice",
+        "choice": "adjacent",
+        "confidence": 0.88,
+        "probabilities": {
+          "cross_domain": 0.0,
+          "core": 0.09,
+          "insufficient": 0.0,
+          "canonical": 0.0,
+          "adjacent": 0.91,
+          "exclude": 0.0
+        }
+      },
+      "fit": {
+        "type": "score",
+        "score": 1.9,
+        "confidence": 0.38,
+        "legend": {
+          "0": "0: no supported fit or insufficient information",
+          "1": "1: weak or indirect fit",
+          "2": "2: clear useful fit",
+          "3": "3: direct, high-value fit to a defined positive axis"
+        },
+        "probabilities": {
+          "0": 0.01,
+          "1": 0.33,
+          "2": 0.4,
+          "3": 0.26
+        }
+      },
+      "match_axis": {
+        "type": "choice",
+        "choice": "evaluation",
+        "confidence": 0.93,
+        "probabilities": {
+          "agents": 0.02,
+          "transfer": 0.0,
+          "evaluation": 0.95,
+          "none": 0.03
+        }
+      },
+      "negative_conflict": {
+        "type": "noul",
+        "noul": 0.13
+      },
+      "evidence_readiness": {
+        "type": "choice",
+        "choice": "abstract_enough",
+        "confidence": 0.95,
+        "probabilities": {
+          "needs_full_text": 0.02,
+          "abstract_enough": 0.97,
+          "insufficient": 0.01
+        }
+      },
+      "support_sentence": {
+        "type": "choice",
+        "choice": "s3",
+        "confidence": 0.38,
+        "probabilities": {
+          "s1": 0.01,
+          "s4": 0.03,
+          "s3": 0.49,
+          "s5": 0.06,
+          "s2": 0.18,
+          "none": 0.23
+        }
+      },
+      "analogy_status": {
+        "type": "choice",
+        "choice": "adapt",
+        "confidence": 0.47,
+        "probabilities": {
+          "direct": 0.22,
+          "insufficient": 0.01,
+          "not_analogy": 0.16,
+          "adapt": 0.61
+        }
+      },
+      "transfer_boundary": {
+        "type": "choice",
+        "choice": "needs_adaptation",
+        "confidence": 0.74,
+        "probabilities": {
+          "insufficient": 0.02,
+          "do_not_transfer": 0.08,
+          "needs_adaptation": 0.81,
+          "direct_borrow": 0.09
+        }
+      }
+    },
+    "questions": {
+      "layer": {
+        "type": "choice",
+        "instructions": "Classify the candidate's role against `profile` using only the public title and English abstract in `candidate`. Choose insufficient whenever the abstract cannot support the judgment.",
+        "criteria": {
+          "core": "Directly advances the profile's central research question, object, or method.",
+          "adjacent": "Useful neighboring method, evidence, or framing without being a direct match.",
+          "cross_domain": "A potentially transferable research structure from another domain; it requires later human review.",
+          "canonical": "A foundational or historical work useful for context, not a current direct match.",
+          "exclude": "Outside the profile or contradicted by its negative axes.",
+          "insufficient": "The title and abstract do not support a bounded layer judgment."
+        }
+      },
+      "fit": {
+        "type": "score",
+        "instructions": "Rate direct fit to `profile` using only `candidate`. This is not a paper-quality score.",
+        "criteria": [
+          "0: no supported fit or insufficient information",
+          "1: weak or indirect fit",
+          "2: clear useful fit",
+          "3: direct, high-value fit to a defined positive axis"
+        ]
+      },
+      "match_axis": {
+        "type": "choice",
+        "instructions": "Which one positive profile axis is best supported by `candidate`? Choose none when no axis is supported.",
+        "criteria": {
+          "agents": "Tool-using language-model agents for chemistry research and reproducible scientific workflows, including experimental planning, execution and evidence integration.",
+          "evaluation": "Reliable evaluation and structured evidence retrieval for scientific agents, including chemistry prediction as an adjacent component.",
+          "transfer": "Transfer of explicit hypothesis-experiment-feedback loops from autonomous laboratories and other empirical sciences into chemistry research agents.",
+          "none": "No positive profile axis is supported by the provided title and abstract."
+        }
+      },
+      "negative_conflict": {
+        "type": "noul",
+        "instructions": {
+          "question": "Does `candidate` materially conflict with any configured negative profile axis?",
+          "negative_axes": [
+            {
+              "id": "off_scope",
+              "description": "Generic NLP sentiment analysis or software vulnerability classification without a scientific research workflow or empirical discovery loop."
+            }
+          ]
+        },
+        "criteria": {
+          "true": "A stated negative axis is materially implicated.",
+          "false": "No material negative-axis conflict is supported by the abstract."
+        }
+      },
+      "evidence_readiness": {
+        "type": "choice",
+        "instructions": "Is the English abstract sufficient for a limited recommendation rationale? This does not verify methods, results, identities, or factual claims.",
+        "criteria": {
+          "abstract_enough": "The abstract supports only a bounded relevance statement.",
+          "needs_full_text": "The candidate may be relevant, but the required rationale needs source text beyond the abstract.",
+          "insufficient": "The abstract does not support a relevance statement."
+        }
+      },
+      "support_sentence": {
+        "type": "choice",
+        "instructions": "Choose the one sentence from `candidate.abstract_sentences` that best supports the bounded relevance decision. Choose none if no sentence does.",
+        "criteria": {
+          "s1": "Extracting structured knowledge from scientific text remains a challenging task for machine learning models.",
+          "s2": "Here, we present a simple approach to joint named entity recognition and relation extraction and demonstrate how pretrained large language models (GPT-3, Llama-2) can be fine-tuned to extract useful records of complex scientific knowledge.",
+          "s3": "We test three representative tasks in materials chemistry: linking dopants and host materials, cataloging metal-organic frameworks, and general composition/phase/morphology/application information extraction.",
+          "s4": "Records are extracted from single sentences or entire paragraphs, and the output can be returned as simple English sentences or a more structured format such as a list of JSON objects.",
+          "s5": "This approach represents a simple, accessible, and highly flexible route to obtaining large databases of structured specialized scientific knowledge extracted from research papers.",
+          "none": "No sentence directly supports a bounded recommendation at abstract level."
+        }
+      },
+      "analogy_status": {
+        "type": "choice",
+        "instructions": "Assess only whether `candidate` exposes a potentially transferable research structure. This never authorizes automatic cross-domain recommendation.",
+        "criteria": {
+          "direct": "A comparable structure is directly visible in the abstract.",
+          "adapt": "There may be an analogy, but domain adaptation is essential.",
+          "not_analogy": "No comparable structure is supported.",
+          "insufficient": "The abstract cannot support this judgment."
+        }
+      },
+      "transfer_boundary": {
+        "type": "choice",
+        "instructions": "If an analogy exists, which transfer boundary is supported by the abstract? This is a review routing signal, not a factual conclusion.",
+        "criteria": {
+          "direct_borrow": "The abstract supports considering a directly analogous approach.",
+          "needs_adaptation": "The abstract supports an analogy but leaves material adaptation work.",
+          "do_not_transfer": "The abstract does not support transfer.",
+          "insufficient": "The abstract cannot support a transfer boundary."
+        }
+      }
+    }
+  },
+  {
+    "answers": {
+      "layer": {
+        "type": "choice",
+        "choice": "exclude",
+        "confidence": 1.0,
+        "probabilities": {
+          "exclude": 1.0,
+          "cross_domain": 0.0,
+          "insufficient": 0.0,
+          "canonical": 0.0,
+          "adjacent": 0.0,
+          "core": 0.0
+        }
+      },
+      "fit": {
+        "type": "score",
+        "score": 0.15,
+        "confidence": 0.85,
+        "legend": {
+          "0": "0: no supported fit or insufficient information",
+          "1": "1: weak or indirect fit",
+          "2": "2: clear useful fit",
+          "3": "3: direct, high-value fit to a defined positive axis"
+        },
+        "probabilities": {
+          "0": 0.87,
+          "1": 0.13,
+          "2": 0.0,
+          "3": 0.0
+        }
+      },
+      "match_axis": {
+        "type": "choice",
+        "choice": "none",
+        "confidence": 0.51,
+        "probabilities": {
+          "transfer": 0.0,
+          "agents": 0.0,
+          "none": 0.63,
+          "evaluation": 0.37
+        }
+      },
+      "negative_conflict": {
+        "type": "noul",
+        "noul": 0.95
+      },
+      "evidence_readiness": {
+        "type": "choice",
+        "choice": "abstract_enough",
+        "confidence": 0.42,
+        "probabilities": {
+          "abstract_enough": 0.62,
+          "needs_full_text": 0.0,
+          "insufficient": 0.38
+        }
+      },
+      "support_sentence": {
+        "type": "choice",
+        "choice": "s1",
+        "confidence": 0.83,
+        "probabilities": {
+          "s1": 0.91,
+          "none": 0.09
+        }
+      },
+      "analogy_status": {
+        "type": "choice",
+        "choice": "not_analogy",
+        "confidence": 0.39,
+        "probabilities": {
+          "insufficient": 0.0,
+          "direct": 0.07,
+          "not_analogy": 0.55,
+          "adapt": 0.38
+        }
+      },
+      "transfer_boundary": {
+        "type": "choice",
+        "choice": "do_not_transfer",
+        "confidence": 0.92,
+        "probabilities": {
+          "do_not_transfer": 0.94,
+          "insufficient": 0.01,
+          "direct_borrow": 0.0,
+          "needs_adaptation": 0.05
+        }
+      }
+    },
+    "questions": {
+      "layer": {
+        "type": "choice",
+        "instructions": "Classify the candidate's role against `profile` using only the public title and English abstract in `candidate`. Choose insufficient whenever the abstract cannot support the judgment.",
+        "criteria": {
+          "core": "Directly advances the profile's central research question, object, or method.",
+          "adjacent": "Useful neighboring method, evidence, or framing without being a direct match.",
+          "cross_domain": "A potentially transferable research structure from another domain; it requires later human review.",
+          "canonical": "A foundational or historical work useful for context, not a current direct match.",
+          "exclude": "Outside the profile or contradicted by its negative axes.",
+          "insufficient": "The title and abstract do not support a bounded layer judgment."
+        }
+      },
+      "fit": {
+        "type": "score",
+        "instructions": "Rate direct fit to `profile` using only `candidate`. This is not a paper-quality score.",
+        "criteria": [
+          "0: no supported fit or insufficient information",
+          "1: weak or indirect fit",
+          "2: clear useful fit",
+          "3: direct, high-value fit to a defined positive axis"
+        ]
+      },
+      "match_axis": {
+        "type": "choice",
+        "instructions": "Which one positive profile axis is best supported by `candidate`? Choose none when no axis is supported.",
+        "criteria": {
+          "agents": "Tool-using language-model agents for chemistry research and reproducible scientific workflows, including experimental planning, execution and evidence integration.",
+          "evaluation": "Reliable evaluation and structured evidence retrieval for scientific agents, including chemistry prediction as an adjacent component.",
+          "transfer": "Transfer of explicit hypothesis-experiment-feedback loops from autonomous laboratories and other empirical sciences into chemistry research agents.",
+          "none": "No positive profile axis is supported by the provided title and abstract."
+        }
+      },
+      "negative_conflict": {
+        "type": "noul",
+        "instructions": {
+          "question": "Does `candidate` materially conflict with any configured negative profile axis?",
+          "negative_axes": [
+            {
+              "id": "off_scope",
+              "description": "Generic NLP sentiment analysis or software vulnerability classification without a scientific research workflow or empirical discovery loop."
+            }
+          ]
+        },
+        "criteria": {
+          "true": "A stated negative axis is materially implicated.",
+          "false": "No material negative-axis conflict is supported by the abstract."
+        }
+      },
+      "evidence_readiness": {
+        "type": "choice",
+        "instructions": "Is the English abstract sufficient for a limited recommendation rationale? This does not verify methods, results, identities, or factual claims.",
+        "criteria": {
+          "abstract_enough": "The abstract supports only a bounded relevance statement.",
+          "needs_full_text": "The candidate may be relevant, but the required rationale needs source text beyond the abstract.",
+          "insufficient": "The abstract does not support a relevance statement."
+        }
+      },
+      "support_sentence": {
+        "type": "choice",
+        "instructions": "Choose the one sentence from `candidate.abstract_sentences` that best supports the bounded relevance decision. Choose none if no sentence does.",
+        "criteria": {
+          "s1": "Sentiment analysis (SA) has been a longstanding research area in natural language processing.With the recent advent of large language models (LLMs), there is great potential for their employment on SA problems.However, the extent to which current LLMs can be leveraged for different sentiment analysis tasks remains unclear.This paper aims to provide a comprehensive investigation into the capabilities of LLMs in performing various sentiment analysis tasks, from conventional sentiment classification to aspect-based sentiment analysis and multifaceted analysis of subjective texts.We evaluate performance across 13 tasks on 26 datasets and compare the results against small language models (SLMs) trained on domain-specific datasets.Our study reveals that while LLMs demonstrate satisfactory performance in simpler tasks, they lag behind in more complex tasks requiring a deeper understanding of specific sentiment phenomena or structured sentiment information.However, LLMs significantly outperform SLMs in fewshot learning settings, suggesting their potential when annotation resources are limited.We also highlight the limitations of current evaluation practices in assessing LLMs' SA abilities and propose a novel benchmark, SENTIEVAL, for a more comprehensive and realistic evaluation.Data and code are available at https:// github.com/DAMO-NLP-SG/LLM-Sentiment.",
+          "none": "No sentence directly supports a bounded recommendation at abstract level."
+        }
+      },
+      "analogy_status": {
+        "type": "choice",
+        "instructions": "Assess only whether `candidate` exposes a potentially transferable research structure. This never authorizes automatic cross-domain recommendation.",
+        "criteria": {
+          "direct": "A comparable structure is directly visible in the abstract.",
+          "adapt": "There may be an analogy, but domain adaptation is essential.",
+          "not_analogy": "No comparable structure is supported.",
+          "insufficient": "The abstract cannot support this judgment."
+        }
+      },
+      "transfer_boundary": {
+        "type": "choice",
+        "instructions": "If an analogy exists, which transfer boundary is supported by the abstract? This is a review routing signal, not a factual conclusion.",
+        "criteria": {
+          "direct_borrow": "The abstract supports considering a directly analogous approach.",
+          "needs_adaptation": "The abstract supports an analogy but leaves material adaptation work.",
+          "do_not_transfer": "The abstract does not support transfer.",
+          "insufficient": "The abstract cannot support a transfer boundary."
+        }
+      }
+    }
+  },
+  {
+    "answers": {
+      "layer": {
+        "type": "choice",
+        "choice": "core",
+        "confidence": 0.87,
+        "probabilities": {
+          "core": 0.88,
+          "canonical": 0.02,
+          "insufficient": 0.01,
+          "adjacent": 0.03,
+          "exclude": 0.0,
+          "cross_domain": 0.06
+        }
+      },
+      "fit": {
+        "type": "score",
+        "score": 2.89,
+        "confidence": 0.89,
+        "legend": {
+          "0": "0: no supported fit or insufficient information",
+          "1": "1: weak or indirect fit",
+          "2": "2: clear useful fit",
+          "3": "3: direct, high-value fit to a defined positive axis"
+        },
+        "probabilities": {
+          "0": 0.01,
+          "1": 0.02,
+          "2": 0.06,
+          "3": 0.91
+        }
+      },
+      "match_axis": {
+        "type": "choice",
+        "choice": "agents",
+        "confidence": 0.34,
+        "probabilities": {
+          "transfer": 0.49,
+          "none": 0.01,
+          "evaluation": 0.0,
+          "agents": 0.5
+        }
+      },
+      "negative_conflict": {
+        "type": "noul",
+        "noul": 0.03
+      },
+      "evidence_readiness": {
+        "type": "choice",
+        "choice": "abstract_enough",
+        "confidence": 0.99,
+        "probabilities": {
+          "needs_full_text": 0.01,
+          "insufficient": 0.0,
+          "abstract_enough": 0.99
+        }
+      },
+      "support_sentence": {
+        "type": "choice",
+        "choice": "s2",
+        "confidence": 0.77,
+        "probabilities": {
+          "s4": 0.01,
+          "s3": 0.01,
+          "none": 0.07,
+          "s6": 0.02,
+          "s2": 0.81,
+          "s1": 0.01,
+          "s5": 0.07
+        }
+      },
+      "analogy_status": {
+        "type": "choice",
+        "choice": "direct",
+        "confidence": 0.91,
+        "probabilities": {
+          "not_analogy": 0.0,
+          "adapt": 0.07,
+          "insufficient": 0.0,
+          "direct": 0.93
+        }
+      },
+      "transfer_boundary": {
+        "type": "choice",
+        "choice": "needs_adaptation",
+        "confidence": 0.45,
+        "probabilities": {
+          "do_not_transfer": 0.0,
+          "insufficient": 0.01,
+          "needs_adaptation": 0.59,
+          "direct_borrow": 0.4
+        }
+      }
+    },
+    "questions": {
+      "layer": {
+        "type": "choice",
+        "instructions": "Classify the candidate's role against `profile` using only the public title and English abstract in `candidate`. Choose insufficient whenever the abstract cannot support the judgment.",
+        "criteria": {
+          "core": "Directly advances the profile's central research question, object, or method.",
+          "adjacent": "Useful neighboring method, evidence, or framing without being a direct match.",
+          "cross_domain": "A potentially transferable research structure from another domain; it requires later human review.",
+          "canonical": "A foundational or historical work useful for context, not a current direct match.",
+          "exclude": "Outside the profile or contradicted by its negative axes.",
+          "insufficient": "The title and abstract do not support a bounded layer judgment."
+        }
+      },
+      "fit": {
+        "type": "score",
+        "instructions": "Rate direct fit to `profile` using only `candidate`. This is not a paper-quality score.",
+        "criteria": [
+          "0: no supported fit or insufficient information",
+          "1: weak or indirect fit",
+          "2: clear useful fit",
+          "3: direct, high-value fit to a defined positive axis"
+        ]
+      },
+      "match_axis": {
+        "type": "choice",
+        "instructions": "Which one positive profile axis is best supported by `candidate`? Choose none when no axis is supported.",
+        "criteria": {
+          "agents": "Tool-using language-model agents for chemistry research and reproducible scientific workflows, including experimental planning, execution and evidence integration.",
+          "evaluation": "Reliable evaluation and structured evidence retrieval for scientific agents, including chemistry prediction as an adjacent component.",
+          "transfer": "Transfer of explicit hypothesis-experiment-feedback loops from autonomous laboratories and other empirical sciences into chemistry research agents.",
+          "none": "No positive profile axis is supported by the provided title and abstract."
+        }
+      },
+      "negative_conflict": {
+        "type": "noul",
+        "instructions": {
+          "question": "Does `candidate` materially conflict with any configured negative profile axis?",
+          "negative_axes": [
+            {
+              "id": "off_scope",
+              "description": "Generic NLP sentiment analysis or software vulnerability classification without a scientific research workflow or empirical discovery loop."
+            }
+          ]
+        },
+        "criteria": {
+          "true": "A stated negative axis is materially implicated.",
+          "false": "No material negative-axis conflict is supported by the abstract."
+        }
+      },
+      "evidence_readiness": {
+        "type": "choice",
+        "instructions": "Is the English abstract sufficient for a limited recommendation rationale? This does not verify methods, results, identities, or factual claims.",
+        "criteria": {
+          "abstract_enough": "The abstract supports only a bounded relevance statement.",
+          "needs_full_text": "The candidate may be relevant, but the required rationale needs source text beyond the abstract.",
+          "insufficient": "The abstract does not support a relevance statement."
+        }
+      },
+      "support_sentence": {
+        "type": "choice",
+        "instructions": "Choose the one sentence from `candidate.abstract_sentences` that best supports the bounded relevance decision. Choose none if no sentence does.",
+        "criteria": {
+          "s1": "Self-driving laboratories (SDLs) promise an accelerated application of the scientific method.",
+          "s2": "Through the automation of experimental workflows, along with autonomous experimental planning, SDLs hold the potential to greatly accelerate research in chemistry and materials discovery.",
+          "s3": "This review provides an in-depth analysis of the state-of-the-art in SDL technology, its applications across various scientific disciplines, and the potential implications for research and industry.",
+          "s4": "This review additionally provides an overview of the enabling technologies for SDLs, including their hardware, software, and integration with laboratory infrastructure.",
+          "s5": "Most importantly, this review explores the diverse range of scientific domains where SDLs have made significant contributions, from drug discovery and materials science to genomics and chemistry.",
+          "s6": "We provide a comprehensive review of existing real-world examples of SDLs, their different levels of automation, and the challenges and limitations associated with each domain.",
+          "none": "No sentence directly supports a bounded recommendation at abstract level."
+        }
+      },
+      "analogy_status": {
+        "type": "choice",
+        "instructions": "Assess only whether `candidate` exposes a potentially transferable research structure. This never authorizes automatic cross-domain recommendation.",
+        "criteria": {
+          "direct": "A comparable structure is directly visible in the abstract.",
+          "adapt": "There may be an analogy, but domain adaptation is essential.",
+          "not_analogy": "No comparable structure is supported.",
+          "insufficient": "The abstract cannot support this judgment."
+        }
+      },
+      "transfer_boundary": {
+        "type": "choice",
+        "instructions": "If an analogy exists, which transfer boundary is supported by the abstract? This is a review routing signal, not a factual conclusion.",
+        "criteria": {
+          "direct_borrow": "The abstract supports considering a directly analogous approach.",
+          "needs_adaptation": "The abstract supports an analogy but leaves material adaptation work.",
+          "do_not_transfer": "The abstract does not support transfer.",
+          "insufficient": "The abstract cannot support a transfer boundary."
+        }
+      }
+    }
+  },
+  {
+    "answers": {
+      "layer": {
+        "type": "choice",
+        "choice": "core",
+        "confidence": 0.99,
+        "probabilities": {
+          "cross_domain": 0.0,
+          "adjacent": 0.0,
+          "canonical": 0.0,
+          "core": 1.0,
+          "exclude": 0.0,
+          "insufficient": 0.0
+        }
+      },
+      "fit": {
+        "type": "score",
+        "score": 2.95,
+        "confidence": 0.95,
+        "legend": {
+          "0": "0: no supported fit or insufficient information",
+          "1": "1: weak or indirect fit",
+          "2": "2: clear useful fit",
+          "3": "3: direct, high-value fit to a defined positive axis"
+        },
+        "probabilities": {
+          "0": 0.01,
+          "1": 0.01,
+          "2": 0.02,
+          "3": 0.96
+        }
+      },
+      "match_axis": {
+        "type": "choice",
+        "choice": "agents",
+        "confidence": 1.0,
+        "probabilities": {
+          "transfer": 0.0,
+          "evaluation": 0.0,
+          "agents": 1.0,
+          "none": 0.0
+        }
+      },
+      "negative_conflict": {
+        "type": "noul",
+        "noul": 0.03
+      },
+      "evidence_readiness": {
+        "type": "choice",
+        "choice": "abstract_enough",
+        "confidence": 0.99,
+        "probabilities": {
+          "insufficient": 0.0,
+          "needs_full_text": 0.01,
+          "abstract_enough": 0.99
+        }
+      },
+      "support_sentence": {
+        "type": "choice",
+        "choice": "s2",
+        "confidence": 0.8,
+        "probabilities": {
+          "s4": 0.0,
+          "s3": 0.09,
+          "s1": 0.0,
+          "s2": 0.85,
+          "none": 0.06
+        }
+      },
+      "analogy_status": {
+        "type": "choice",
+        "choice": "direct",
+        "confidence": 0.98,
+        "probabilities": {
+          "direct": 0.98,
+          "not_analogy": 0.0,
+          "adapt": 0.02,
+          "insufficient": 0.0
+        }
+      },
+      "transfer_boundary": {
+        "type": "choice",
+        "choice": "direct_borrow",
+        "confidence": 0.55,
+        "probabilities": {
+          "do_not_transfer": 0.01,
+          "direct_borrow": 0.66,
+          "needs_adaptation": 0.32,
+          "insufficient": 0.01
+        }
+      }
+    },
+    "questions": {
+      "layer": {
+        "type": "choice",
+        "instructions": "Classify the candidate's role against `profile` using only the public title and English abstract in `candidate`. Choose insufficient whenever the abstract cannot support the judgment.",
+        "criteria": {
+          "core": "Directly advances the profile's central research question, object, or method.",
+          "adjacent": "Useful neighboring method, evidence, or framing without being a direct match.",
+          "cross_domain": "A potentially transferable research structure from another domain; it requires later human review.",
+          "canonical": "A foundational or historical work useful for context, not a current direct match.",
+          "exclude": "Outside the profile or contradicted by its negative axes.",
+          "insufficient": "The title and abstract do not support a bounded layer judgment."
+        }
+      },
+      "fit": {
+        "type": "score",
+        "instructions": "Rate direct fit to `profile` using only `candidate`. This is not a paper-quality score.",
+        "criteria": [
+          "0: no supported fit or insufficient information",
+          "1: weak or indirect fit",
+          "2: clear useful fit",
+          "3: direct, high-value fit to a defined positive axis"
+        ]
+      },
+      "match_axis": {
+        "type": "choice",
+        "instructions": "Which one positive profile axis is best supported by `candidate`? Choose none when no axis is supported.",
+        "criteria": {
+          "agents": "Tool-using language-model agents for chemistry research and reproducible scientific workflows, including experimental planning, execution and evidence integration.",
+          "evaluation": "Reliable evaluation and structured evidence retrieval for scientific agents, including chemistry prediction as an adjacent component.",
+          "transfer": "Transfer of explicit hypothesis-experiment-feedback loops from autonomous laboratories and other empirical sciences into chemistry research agents.",
+          "none": "No positive profile axis is supported by the provided title and abstract."
+        }
+      },
+      "negative_conflict": {
+        "type": "noul",
+        "instructions": {
+          "question": "Does `candidate` materially conflict with any configured negative profile axis?",
+          "negative_axes": [
+            {
+              "id": "off_scope",
+              "description": "Generic NLP sentiment analysis or software vulnerability classification without a scientific research workflow or empirical discovery loop."
+            }
+          ]
+        },
+        "criteria": {
+          "true": "A stated negative axis is materially implicated.",
+          "false": "No material negative-axis conflict is supported by the abstract."
+        }
+      },
+      "evidence_readiness": {
+        "type": "choice",
+        "instructions": "Is the English abstract sufficient for a limited recommendation rationale? This does not verify methods, results, identities, or factual claims.",
+        "criteria": {
+          "abstract_enough": "The abstract supports only a bounded relevance statement.",
+          "needs_full_text": "The candidate may be relevant, but the required rationale needs source text beyond the abstract.",
+          "insufficient": "The abstract does not support a relevance statement."
+        }
+      },
+      "support_sentence": {
+        "type": "choice",
+        "instructions": "Choose the one sentence from `candidate.abstract_sentences` that best supports the bounded relevance decision. Choose none if no sentence does.",
+        "criteria": {
+          "s1": "Abstract Transformer-based large language models are making significant strides in various fields, such as natural language processing 1–5 , biology 6,7 , chemistry 8–10 and computer programming 11,12 .",
+          "s2": "Here, we show the development and capabilities of Coscientist, an artificial intelligence system driven by GPT-4 that autonomously designs, plans and performs complex experiments by incorporating large language models empowered by tools such as internet and documentation search, code execution and experimental automation.",
+          "s3": "Coscientist showcases its potential for accelerating research across six diverse tasks, including the successful reaction optimization of palladium-catalysed cross-couplings, while exhibiting advanced capabilities for (semi-)autonomous experimental design and execution.",
+          "s4": "Our findings demonstrate the versatility, efficacy and explainability of artificial intelligence systems like Coscientist in advancing research.",
+          "none": "No sentence directly supports a bounded recommendation at abstract level."
+        }
+      },
+      "analogy_status": {
+        "type": "choice",
+        "instructions": "Assess only whether `candidate` exposes a potentially transferable research structure. This never authorizes automatic cross-domain recommendation.",
+        "criteria": {
+          "direct": "A comparable structure is directly visible in the abstract.",
+          "adapt": "There may be an analogy, but domain adaptation is essential.",
+          "not_analogy": "No comparable structure is supported.",
+          "insufficient": "The abstract cannot support this judgment."
+        }
+      },
+      "transfer_boundary": {
+        "type": "choice",
+        "instructions": "If an analogy exists, which transfer boundary is supported by the abstract? This is a review routing signal, not a factual conclusion.",
+        "criteria": {
+          "direct_borrow": "The abstract supports considering a directly analogous approach.",
+          "needs_adaptation": "The abstract supports an analogy but leaves material adaptation work.",
+          "do_not_transfer": "The abstract does not support transfer.",
+          "insufficient": "The abstract cannot support a transfer boundary."
+        }
+      }
+    }
+  },
+  {
+    "answers": {
+      "layer": {
+        "type": "choice",
+        "choice": "adjacent",
+        "confidence": 0.44,
+        "probabilities": {
+          "adjacent": 0.53,
+          "core": 0.0,
+          "insufficient": 0.02,
+          "exclude": 0.27,
+          "cross_domain": 0.17,
+          "canonical": 0.0
+        }
+      },
+      "fit": {
+        "type": "score",
+        "score": 0.92,
+        "confidence": 0.79,
+        "legend": {
+          "0": "0: no supported fit or insufficient information",
+          "1": "1: weak or indirect fit",
+          "2": "2: clear useful fit",
+          "3": "3: direct, high-value fit to a defined positive axis"
+        },
+        "probabilities": {
+          "0": 0.15,
+          "1": 0.8,
+          "2": 0.04,
+          "3": 0.01
+        }
+      },
+      "match_axis": {
+        "type": "choice",
+        "choice": "none",
+        "confidence": 0.45,
+        "probabilities": {
+          "cell_models": 0.0,
+          "none": 0.59,
+          "transfer": 0.0,
+          "evaluation": 0.41
+        }
+      },
+      "negative_conflict": {
+        "type": "noul",
+        "noul": 0.06
+      },
+      "evidence_readiness": {
+        "type": "choice",
+        "choice": "abstract_enough",
+        "confidence": 0.7,
+        "probabilities": {
+          "needs_full_text": 0.01,
+          "abstract_enough": 0.81,
+          "insufficient": 0.18
+        }
+      },
+      "support_sentence": {
+        "type": "choice",
+        "choice": "s3",
+        "confidence": 0.4,
+        "probabilities": {
+          "s7": 0.06,
+          "s5": 0.04,
+          "s3": 0.46,
+          "none": 0.33,
+          "s1": 0.01,
+          "s8": 0.01,
+          "s6": 0.02,
+          "s2": 0.03,
+          "s4": 0.03,
+          "s9": 0.01
+        }
+      },
+      "analogy_status": {
+        "type": "choice",
+        "choice": "adapt",
+        "confidence": 0.6,
+        "probabilities": {
+          "adapt": 0.69,
+          "direct": 0.11,
+          "not_analogy": 0.19,
+          "insufficient": 0.01
+        }
+      },
+      "transfer_boundary": {
+        "type": "choice",
+        "choice": "needs_adaptation",
+        "confidence": 0.79,
+        "probabilities": {
+          "needs_adaptation": 0.85,
+          "direct_borrow": 0.0,
+          "do_not_transfer": 0.11,
+          "insufficient": 0.04
+        }
+      }
+    },
+    "questions": {
+      "layer": {
+        "type": "choice",
+        "instructions": "Classify the candidate's role against `profile` using only the public title and English abstract in `candidate`. Choose insufficient whenever the abstract cannot support the judgment.",
+        "criteria": {
+          "core": "Directly advances the profile's central research question, object, or method.",
+          "adjacent": "Useful neighboring method, evidence, or framing without being a direct match.",
+          "cross_domain": "A potentially transferable research structure from another domain; it requires later human review.",
+          "canonical": "A foundational or historical work useful for context, not a current direct match.",
+          "exclude": "Outside the profile or contradicted by its negative axes.",
+          "insufficient": "The title and abstract do not support a bounded layer judgment."
+        }
+      },
+      "fit": {
+        "type": "score",
+        "instructions": "Rate direct fit to `profile` using only `candidate`. This is not a paper-quality score.",
+        "criteria": [
+          "0: no supported fit or insufficient information",
+          "1: weak or indirect fit",
+          "2: clear useful fit",
+          "3: direct, high-value fit to a defined positive axis"
+        ]
+      },
+      "match_axis": {
+        "type": "choice",
+        "instructions": "Which one positive profile axis is best supported by `candidate`? Choose none when no axis is supported.",
+        "criteria": {
+          "cell_models": "Reusable foundation models for single-cell transcriptomics, perturbation response prediction, and cell representations.",
+          "evaluation": "Rigorous evaluation of generalization, uncertainty and simple baselines for predictive cell models.",
+          "transfer": "Transferable uncertainty-aware experimental design and active learning loops from protein engineering into cell perturbation research.",
+          "none": "No positive profile axis is supported by the provided title and abstract."
+        }
+      },
+      "negative_conflict": {
+        "type": "noul",
+        "instructions": {
+          "question": "Does `candidate` materially conflict with any configured negative profile axis?",
+          "negative_axes": [
+            {
+              "id": "off_scope",
+              "description": "Descriptive disease or organ cell atlases without a reusable predictive method, model benchmark, or perturbation modeling contribution."
+            }
+          ]
+        },
+        "criteria": {
+          "true": "A stated negative axis is materially implicated.",
+          "false": "No material negative-axis conflict is supported by the abstract."
+        }
+      },
+      "evidence_readiness": {
+        "type": "choice",
+        "instructions": "Is the English abstract sufficient for a limited recommendation rationale? This does not verify methods, results, identities, or factual claims.",
+        "criteria": {
+          "abstract_enough": "The abstract supports only a bounded relevance statement.",
+          "needs_full_text": "The candidate may be relevant, but the required rationale needs source text beyond the abstract.",
+          "insufficient": "The abstract does not support a relevance statement."
+        }
+      },
+      "support_sentence": {
+        "type": "choice",
+        "instructions": "Choose the one sentence from `candidate.abstract_sentences` that best supports the bounded relevance decision. Choose none if no sentence does.",
+        "criteria": {
+          "s1": "ABSTRACT Large language models (LLMs) have significantly revolutionized natural language processing through their strong capabilities in text generation and reasoning.",
+          "s2": "Yet, their applicability to bioinformatics applications remains largely unexplored.",
+          "s3": "Here, we systematically evaluate state‐of‐the‐art LLMs across six representative task domains: drug–drug interaction prediction, antimicrobial and anticancer peptide identification, molecular optimization, gene and protein named entity recognition, single‐cell type annotation, and bioinformatics question answering.",
+          "s4": "Our results show that general‐purpose LLMs can deliver competitive performance across most tasks, demonstrating their versatility for biological data analysis under minimal task‐specific adaptation.",
+          "s5": "Meanwhile, our findings underscore critical limitations for the usage of LLMs in bioinformatics research.",
+          "s6": "First, LLMs exhibit limited capability in chemical structure reasoning for molecular optimization, highlighting the need for integrating physics‐based structure constraints into generative modeling.",
+          "s7": "Second, their sensitivity to ambiguity in gene/protein recognition and single‐cell annotation emphasizes the importance of domain‐specific knowledge in prompt design.",
+          "s8": "Finally, their difficulty in answering computational biology questions suggests that future systems may benefit from combining LLMs with structured reasoning frameworks to support more biologically rigorous inference and decision‐making.",
+          "s9": "These findings reveal both the promise and the boundaries of current LLMs in bioinformatics, offering a roadmap for advancing next‐generation LLM models tailored to the bioinformatics applications.",
+          "none": "No sentence directly supports a bounded recommendation at abstract level."
+        }
+      },
+      "analogy_status": {
+        "type": "choice",
+        "instructions": "Assess only whether `candidate` exposes a potentially transferable research structure. This never authorizes automatic cross-domain recommendation.",
+        "criteria": {
+          "direct": "A comparable structure is directly visible in the abstract.",
+          "adapt": "There may be an analogy, but domain adaptation is essential.",
+          "not_analogy": "No comparable structure is supported.",
+          "insufficient": "The abstract cannot support this judgment."
+        }
+      },
+      "transfer_boundary": {
+        "type": "choice",
+        "instructions": "If an analogy exists, which transfer boundary is supported by the abstract? This is a review routing signal, not a factual conclusion.",
+        "criteria": {
+          "direct_borrow": "The abstract supports considering a directly analogous approach.",
+          "needs_adaptation": "The abstract supports an analogy but leaves material adaptation work.",
+          "do_not_transfer": "The abstract does not support transfer.",
+          "insufficient": "The abstract cannot support a transfer boundary."
+        }
+      }
+    }
+  },
+  {
+    "answers": {
+      "layer": {
+        "type": "choice",
+        "choice": "core",
+        "confidence": 0.8,
+        "probabilities": {
+          "cross_domain": 0.0,
+          "insufficient": 0.0,
+          "exclude": 0.0,
+          "adjacent": 0.16,
+          "canonical": 0.0,
+          "core": 0.84
+        }
+      },
+      "fit": {
+        "type": "score",
+        "score": 2.7,
+        "confidence": 0.7,
+        "legend": {
+          "0": "0: no supported fit or insufficient information",
+          "1": "1: weak or indirect fit",
+          "2": "2: clear useful fit",
+          "3": "3: direct, high-value fit to a defined positive axis"
+        },
+        "probabilities": {
+          "0": 0.0,
+          "1": 0.03,
+          "2": 0.22,
+          "3": 0.75
+        }
+      },
+      "match_axis": {
+        "type": "choice",
+        "choice": "evaluation",
+        "confidence": 1.0,
+        "probabilities": {
+          "none": 0.0,
+          "cell_models": 0.0,
+          "transfer": 0.0,
+          "evaluation": 1.0
+        }
+      },
+      "negative_conflict": {
+        "type": "noul",
+        "noul": 0.05
+      },
+      "evidence_readiness": {
+        "type": "choice",
+        "choice": "abstract_enough",
+        "confidence": 0.98,
+        "probabilities": {
+          "needs_full_text": 0.01,
+          "abstract_enough": 0.99,
+          "insufficient": 0.0
+        }
+      },
+      "support_sentence": {
+        "type": "choice",
+        "choice": "s3",
+        "confidence": 0.73,
+        "probabilities": {
+          "s1": 0.07,
+          "none": 0.11,
+          "s3": 0.79,
+          "s4": 0.02,
+          "s2": 0.01
+        }
+      },
+      "analogy_status": {
+        "type": "choice",
+        "choice": "direct",
+        "confidence": 0.41,
+        "probabilities": {
+          "direct": 0.56,
+          "adapt": 0.37,
+          "not_analogy": 0.06,
+          "insufficient": 0.01
+        }
+      },
+      "transfer_boundary": {
+        "type": "choice",
+        "choice": "needs_adaptation",
+        "confidence": 0.25,
+        "probabilities": {
+          "direct_borrow": 0.19,
+          "do_not_transfer": 0.19,
+          "needs_adaptation": 0.43,
+          "insufficient": 0.19
+        }
+      }
+    },
+    "questions": {
+      "layer": {
+        "type": "choice",
+        "instructions": "Classify the candidate's role against `profile` using only the public title and English abstract in `candidate`. Choose insufficient whenever the abstract cannot support the judgment.",
+        "criteria": {
+          "core": "Directly advances the profile's central research question, object, or method.",
+          "adjacent": "Useful neighboring method, evidence, or framing without being a direct match.",
+          "cross_domain": "A potentially transferable research structure from another domain; it requires later human review.",
+          "canonical": "A foundational or historical work useful for context, not a current direct match.",
+          "exclude": "Outside the profile or contradicted by its negative axes.",
+          "insufficient": "The title and abstract do not support a bounded layer judgment."
+        }
+      },
+      "fit": {
+        "type": "score",
+        "instructions": "Rate direct fit to `profile` using only `candidate`. This is not a paper-quality score.",
+        "criteria": [
+          "0: no supported fit or insufficient information",
+          "1: weak or indirect fit",
+          "2: clear useful fit",
+          "3: direct, high-value fit to a defined positive axis"
+        ]
+      },
+      "match_axis": {
+        "type": "choice",
+        "instructions": "Which one positive profile axis is best supported by `candidate`? Choose none when no axis is supported.",
+        "criteria": {
+          "cell_models": "Reusable foundation models for single-cell transcriptomics, perturbation response prediction, and cell representations.",
+          "evaluation": "Rigorous evaluation of generalization, uncertainty and simple baselines for predictive cell models.",
+          "transfer": "Transferable uncertainty-aware experimental design and active learning loops from protein engineering into cell perturbation research.",
+          "none": "No positive profile axis is supported by the provided title and abstract."
+        }
+      },
+      "negative_conflict": {
+        "type": "noul",
+        "instructions": {
+          "question": "Does `candidate` materially conflict with any configured negative profile axis?",
+          "negative_axes": [
+            {
+              "id": "off_scope",
+              "description": "Descriptive disease or organ cell atlases without a reusable predictive method, model benchmark, or perturbation modeling contribution."
+            }
+          ]
+        },
+        "criteria": {
+          "true": "A stated negative axis is materially implicated.",
+          "false": "No material negative-axis conflict is supported by the abstract."
+        }
+      },
+      "evidence_readiness": {
+        "type": "choice",
+        "instructions": "Is the English abstract sufficient for a limited recommendation rationale? This does not verify methods, results, identities, or factual claims.",
+        "criteria": {
+          "abstract_enough": "The abstract supports only a bounded relevance statement.",
+          "needs_full_text": "The candidate may be relevant, but the required rationale needs source text beyond the abstract.",
+          "insufficient": "The abstract does not support a relevance statement."
+        }
+      },
+      "support_sentence": {
+        "type": "choice",
+        "instructions": "Choose the one sentence from `candidate.abstract_sentences` that best supports the bounded relevance decision. Choose none if no sentence does.",
+        "criteria": {
+          "s1": "Foundation models such as scGPT and Geneformer have not been rigorously evaluated in a setting where they are used without any further training (i.e., zero-shot).",
+          "s2": "Understanding the performance of models in zero-shot settings is critical to applications that exclude the ability to fine-tune, such as discovery settings where labels are unknown.",
+          "s3": "Our evaluation of the zero-shot performance of Geneformer and scGPT suggests that, in some cases, these models may face reliability challenges and could be outperformed by simpler methods.",
+          "s4": "Our findings underscore the importance of zero-shot evaluations in development and deployment of foundation models in single-cell research.",
+          "none": "No sentence directly supports a bounded recommendation at abstract level."
+        }
+      },
+      "analogy_status": {
+        "type": "choice",
+        "instructions": "Assess only whether `candidate` exposes a potentially transferable research structure. This never authorizes automatic cross-domain recommendation.",
+        "criteria": {
+          "direct": "A comparable structure is directly visible in the abstract.",
+          "adapt": "There may be an analogy, but domain adaptation is essential.",
+          "not_analogy": "No comparable structure is supported.",
+          "insufficient": "The abstract cannot support this judgment."
+        }
+      },
+      "transfer_boundary": {
+        "type": "choice",
+        "instructions": "If an analogy exists, which transfer boundary is supported by the abstract? This is a review routing signal, not a factual conclusion.",
+        "criteria": {
+          "direct_borrow": "The abstract supports considering a directly analogous approach.",
+          "needs_adaptation": "The abstract supports an analogy but leaves material adaptation work.",
+          "do_not_transfer": "The abstract does not support transfer.",
+          "insufficient": "The abstract cannot support a transfer boundary."
+        }
+      }
+    }
+  },
+  {
+    "answers": {
+      "layer": {
+        "type": "choice",
+        "choice": "core",
+        "confidence": 0.9,
+        "probabilities": {
+          "core": 0.92,
+          "adjacent": 0.08,
+          "cross_domain": 0.0,
+          "canonical": 0.0,
+          "exclude": 0.0,
+          "insufficient": 0.0
+        }
+      },
+      "fit": {
+        "type": "score",
+        "score": 2.88,
+        "confidence": 0.88,
+        "legend": {
+          "0": "0: no supported fit or insufficient information",
+          "1": "1: weak or indirect fit",
+          "2": "2: clear useful fit",
+          "3": "3: direct, high-value fit to a defined positive axis"
+        },
+        "probabilities": {
+          "0": 0.0,
+          "1": 0.01,
+          "2": 0.09,
+          "3": 0.9
+        }
+      },
+      "match_axis": {
+        "type": "choice",
+        "choice": "evaluation",
+        "confidence": 1.0,
+        "probabilities": {
+          "cell_models": 0.0,
+          "evaluation": 1.0,
+          "transfer": 0.0,
+          "none": 0.0
+        }
+      },
+      "negative_conflict": {
+        "type": "noul",
+        "noul": 0.04
+      },
+      "evidence_readiness": {
+        "type": "choice",
+        "choice": "abstract_enough",
+        "confidence": 0.99,
+        "probabilities": {
+          "abstract_enough": 1.0,
+          "needs_full_text": 0.0,
+          "insufficient": 0.0
+        }
+      },
+      "support_sentence": {
+        "type": "choice",
+        "choice": "s3",
+        "confidence": 0.49,
+        "probabilities": {
+          "s1": 0.0,
+          "s2": 0.15,
+          "s3": 0.55,
+          "s4": 0.02,
+          "s5": 0.22,
+          "s6": 0.01,
+          "s7": 0.0,
+          "none": 0.05
+        }
+      },
+      "analogy_status": {
+        "type": "choice",
+        "choice": "direct",
+        "confidence": 0.61,
+        "probabilities": {
+          "direct": 0.71,
+          "adapt": 0.22,
+          "not_analogy": 0.06,
+          "insufficient": 0.01
+        }
+      },
+      "transfer_boundary": {
+        "type": "choice",
+        "choice": "do_not_transfer",
+        "confidence": 0.14,
+        "probabilities": {
+          "direct_borrow": 0.11,
+          "needs_adaptation": 0.34,
+          "do_not_transfer": 0.35,
+          "insufficient": 0.2
+        }
+      }
+    },
+    "questions": {
+      "layer": {
+        "type": "choice",
+        "instructions": "Classify the candidate's role against `profile` using only the public title and English abstract in `candidate`. Choose insufficient whenever the abstract cannot support the judgment.",
+        "criteria": {
+          "core": "Directly advances the profile's central research question, object, or method.",
+          "adjacent": "Useful neighboring method, evidence, or framing without being a direct match.",
+          "cross_domain": "A potentially transferable research structure from another domain; it requires later human review.",
+          "canonical": "A foundational or historical work useful for context, not a current direct match.",
+          "exclude": "Outside the profile or contradicted by its negative axes.",
+          "insufficient": "The title and abstract do not support a bounded layer judgment."
+        }
+      },
+      "fit": {
+        "type": "score",
+        "instructions": "Rate direct fit to `profile` using only `candidate`. This is not a paper-quality score.",
+        "criteria": [
+          "0: no supported fit or insufficient information",
+          "1: weak or indirect fit",
+          "2: clear useful fit",
+          "3: direct, high-value fit to a defined positive axis"
+        ]
+      },
+      "match_axis": {
+        "type": "choice",
+        "instructions": "Which one positive profile axis is best supported by `candidate`? Choose none when no axis is supported.",
+        "criteria": {
+          "cell_models": "Reusable foundation models for single-cell transcriptomics, perturbation response prediction, and cell representations.",
+          "evaluation": "Rigorous evaluation of generalization, uncertainty and simple baselines for predictive cell models.",
+          "transfer": "Transferable uncertainty-aware experimental design and active learning loops from protein engineering into cell perturbation research.",
+          "none": "No positive profile axis is supported by the provided title and abstract."
+        }
+      },
+      "negative_conflict": {
+        "type": "noul",
+        "instructions": {
+          "question": "Does `candidate` materially conflict with any configured negative profile axis?",
+          "negative_axes": [
+            {
+              "id": "off_scope",
+              "description": "Descriptive disease or organ cell atlases without a reusable predictive method, model benchmark, or perturbation modeling contribution."
+            }
+          ]
+        },
+        "criteria": {
+          "true": "A stated negative axis is materially implicated.",
+          "false": "No material negative-axis conflict is supported by the abstract."
+        }
+      },
+      "evidence_readiness": {
+        "type": "choice",
+        "instructions": "Is the English abstract sufficient for a limited recommendation rationale? This does not verify methods, results, identities, or factual claims.",
+        "criteria": {
+          "abstract_enough": "The abstract supports only a bounded relevance statement.",
+          "needs_full_text": "The candidate may be relevant, but the required rationale needs source text beyond the abstract.",
+          "insufficient": "The abstract does not support a relevance statement."
+        }
+      },
+      "support_sentence": {
+        "type": "choice",
+        "instructions": "Choose the one sentence from `candidate.abstract_sentences` that best supports the bounded relevance decision. Choose none if no sentence does.",
+        "criteria": {
+          "s1": "Abstract In silico modeling of transcriptional responses to perturbations is crucial for advancing our understanding of cellular processes and disease mechanisms.",
+          "s2": "We present PertEval-scFM, a standardized framework designed to evaluate models for perturbation effect prediction.",
+          "s3": "We apply PertEval-scFM to benchmark zero-shot single-cell foundation model (scFM) embeddings against base-line models to assess whether these contextualized representations enhance perturbation effect prediction.",
+          "s4": "Our results show that scFM embeddings do not provide consistent improvements over baseline models, especially under distribution shift.",
+          "s5": "Overall, this study provides a systematic evaluation of zero-shot scFM embeddings for perturbation effect prediction, highlighting the challenges of this task and revealing the limitations of current-generation scFMs.",
+          "s6": "Our findings underscore the need for specialized models and high-quality datasets that capture a broader range of cellular states.",
+          "s7": "Source code and documentation can be found at: https://github.com/aaronwtr/PertEval .",
+          "none": "No sentence directly supports a bounded recommendation at abstract level."
+        }
+      },
+      "analogy_status": {
+        "type": "choice",
+        "instructions": "Assess only whether `candidate` exposes a potentially transferable research structure. This never authorizes automatic cross-domain recommendation.",
+        "criteria": {
+          "direct": "A comparable structure is directly visible in the abstract.",
+          "adapt": "There may be an analogy, but domain adaptation is essential.",
+          "not_analogy": "No comparable structure is supported.",
+          "insufficient": "The abstract cannot support this judgment."
+        }
+      },
+      "transfer_boundary": {
+        "type": "choice",
+        "instructions": "If an analogy exists, which transfer boundary is supported by the abstract? This is a review routing signal, not a factual conclusion.",
+        "criteria": {
+          "direct_borrow": "The abstract supports considering a directly analogous approach.",
+          "needs_adaptation": "The abstract supports an analogy but leaves material adaptation work.",
+          "do_not_transfer": "The abstract does not support transfer.",
+          "insufficient": "The abstract cannot support a transfer boundary."
+        }
+      }
+    }
+  },
+  {
+    "answers": {
+      "layer": {
+        "type": "choice",
+        "choice": "exclude",
+        "confidence": 0.99,
+        "probabilities": {
+          "cross_domain": 0.0,
+          "insufficient": 0.0,
+          "core": 0.0,
+          "canonical": 0.0,
+          "adjacent": 0.01,
+          "exclude": 0.99
+        }
+      },
+      "fit": {
+        "type": "score",
+        "score": 0.24,
+        "confidence": 0.76,
+        "legend": {
+          "0": "0: no supported fit or insufficient information",
+          "1": "1: weak or indirect fit",
+          "2": "2: clear useful fit",
+          "3": "3: direct, high-value fit to a defined positive axis"
+        },
+        "probabilities": {
+          "0": 0.78,
+          "1": 0.22,
+          "2": 0.0,
+          "3": 0.0
+        }
+      },
+      "match_axis": {
+        "type": "choice",
+        "choice": "none",
+        "confidence": 1.0,
+        "probabilities": {
+          "cell_models": 0.0,
+          "evaluation": 0.0,
+          "none": 1.0,
+          "transfer": 0.0
+        }
+      },
+      "negative_conflict": {
+        "type": "noul",
+        "noul": 0.91
+      },
+      "evidence_readiness": {
+        "type": "choice",
+        "choice": "abstract_enough",
+        "confidence": 0.63,
+        "probabilities": {
+          "abstract_enough": 0.75,
+          "insufficient": 0.24,
+          "needs_full_text": 0.01
+        }
+      },
+      "support_sentence": {
+        "type": "choice",
+        "choice": "s2",
+        "confidence": 0.68,
+        "probabilities": {
+          "s1": 0.01,
+          "s4": 0.01,
+          "s2": 0.72,
+          "s5": 0.02,
+          "s6": 0.2,
+          "s3": 0.0,
+          "none": 0.04
+        }
+      },
+      "analogy_status": {
+        "type": "choice",
+        "choice": "not_analogy",
+        "confidence": 0.72,
+        "probabilities": {
+          "direct": 0.01,
+          "insufficient": 0.01,
+          "adapt": 0.19,
+          "not_analogy": 0.79
+        }
+      },
+      "transfer_boundary": {
+        "type": "choice",
+        "choice": "do_not_transfer",
+        "confidence": 0.93,
+        "probabilities": {
+          "needs_adaptation": 0.03,
+          "do_not_transfer": 0.95,
+          "insufficient": 0.02,
+          "direct_borrow": 0.0
+        }
+      }
+    },
+    "questions": {
+      "layer": {
+        "type": "choice",
+        "instructions": "Classify the candidate's role against `profile` using only the public title and English abstract in `candidate`. Choose insufficient whenever the abstract cannot support the judgment.",
+        "criteria": {
+          "core": "Directly advances the profile's central research question, object, or method.",
+          "adjacent": "Useful neighboring method, evidence, or framing without being a direct match.",
+          "cross_domain": "A potentially transferable research structure from another domain; it requires later human review.",
+          "canonical": "A foundational or historical work useful for context, not a current direct match.",
+          "exclude": "Outside the profile or contradicted by its negative axes.",
+          "insufficient": "The title and abstract do not support a bounded layer judgment."
+        }
+      },
+      "fit": {
+        "type": "score",
+        "instructions": "Rate direct fit to `profile` using only `candidate`. This is not a paper-quality score.",
+        "criteria": [
+          "0: no supported fit or insufficient information",
+          "1: weak or indirect fit",
+          "2: clear useful fit",
+          "3: direct, high-value fit to a defined positive axis"
+        ]
+      },
+      "match_axis": {
+        "type": "choice",
+        "instructions": "Which one positive profile axis is best supported by `candidate`? Choose none when no axis is supported.",
+        "criteria": {
+          "cell_models": "Reusable foundation models for single-cell transcriptomics, perturbation response prediction, and cell representations.",
+          "evaluation": "Rigorous evaluation of generalization, uncertainty and simple baselines for predictive cell models.",
+          "transfer": "Transferable uncertainty-aware experimental design and active learning loops from protein engineering into cell perturbation research.",
+          "none": "No positive profile axis is supported by the provided title and abstract."
+        }
+      },
+      "negative_conflict": {
+        "type": "noul",
+        "instructions": {
+          "question": "Does `candidate` materially conflict with any configured negative profile axis?",
+          "negative_axes": [
+            {
+              "id": "off_scope",
+              "description": "Descriptive disease or organ cell atlases without a reusable predictive method, model benchmark, or perturbation modeling contribution."
+            }
+          ]
+        },
+        "criteria": {
+          "true": "A stated negative axis is materially implicated.",
+          "false": "No material negative-axis conflict is supported by the abstract."
+        }
+      },
+      "evidence_readiness": {
+        "type": "choice",
+        "instructions": "Is the English abstract sufficient for a limited recommendation rationale? This does not verify methods, results, identities, or factual claims.",
+        "criteria": {
+          "abstract_enough": "The abstract supports only a bounded relevance statement.",
+          "needs_full_text": "The candidate may be relevant, but the required rationale needs source text beyond the abstract.",
+          "insufficient": "The abstract does not support a relevance statement."
+        }
+      },
+      "support_sentence": {
+        "type": "choice",
+        "instructions": "Choose the one sentence from `candidate.abstract_sentences` that best supports the bounded relevance decision. Choose none if no sentence does.",
+        "criteria": {
+          "s1": "Characterizing the compositional and phenotypic characteristics of tumor-infiltrating B cells (TIBs) is important for advancing our understanding of their role in cancer development.",
+          "s2": "Here, we establish a comprehensive resource of human B cells by integrating single-cell RNA sequencing data of B cells from 649 patients across 19 major cancer types.",
+          "s3": "We demonstrate substantial heterogeneity in their total abundance and subtype composition and observe immunoglobulin G (IgG)-skewness of antibody-secreting cell isotypes.",
+          "s4": "Moreover, we identify stress-response memory B cells and tumor-associated atypical B cells (TAABs), two tumor-enriched subpopulations with prognostic potential, shared in a pan-cancer manner.",
+          "s5": "In particular, TAABs, characterized by a high clonal expansion level and proliferative capacity as well as by close interactions with activated CD4 T cells in tumors, are predictive of immunotherapy response.",
+          "s6": "Our integrative resource depicts distinct clinically relevant TIB subsets, laying a foundation for further exploration of functional commonality and diversity of B cells in cancer.",
+          "none": "No sentence directly supports a bounded recommendation at abstract level."
+        }
+      },
+      "analogy_status": {
+        "type": "choice",
+        "instructions": "Assess only whether `candidate` exposes a potentially transferable research structure. This never authorizes automatic cross-domain recommendation.",
+        "criteria": {
+          "direct": "A comparable structure is directly visible in the abstract.",
+          "adapt": "There may be an analogy, but domain adaptation is essential.",
+          "not_analogy": "No comparable structure is supported.",
+          "insufficient": "The abstract cannot support this judgment."
+        }
+      },
+      "transfer_boundary": {
+        "type": "choice",
+        "instructions": "If an analogy exists, which transfer boundary is supported by the abstract? This is a review routing signal, not a factual conclusion.",
+        "criteria": {
+          "direct_borrow": "The abstract supports considering a directly analogous approach.",
+          "needs_adaptation": "The abstract supports an analogy but leaves material adaptation work.",
+          "do_not_transfer": "The abstract does not support transfer.",
+          "insufficient": "The abstract cannot support a transfer boundary."
+        }
+      }
+    }
+  },
+  {
+    "answers": {
+      "layer": {
+        "type": "choice",
+        "choice": "exclude",
+        "confidence": 1.0,
+        "probabilities": {
+          "insufficient": 0.0,
+          "adjacent": 0.0,
+          "core": 0.0,
+          "canonical": 0.0,
+          "exclude": 1.0,
+          "cross_domain": 0.0
+        }
+      },
+      "fit": {
+        "type": "score",
+        "score": 0.08,
+        "confidence": 0.92,
+        "legend": {
+          "0": "0: no supported fit or insufficient information",
+          "1": "1: weak or indirect fit",
+          "2": "2: clear useful fit",
+          "3": "3: direct, high-value fit to a defined positive axis"
+        },
+        "probabilities": {
+          "0": 0.9400000000000001,
+          "1": 0.06,
+          "2": 0.0,
+          "3": 0.0
+        }
+      },
+      "match_axis": {
+        "type": "choice",
+        "choice": "none",
+        "confidence": 1.0,
+        "probabilities": {
+          "transfer": 0.0,
+          "cell_models": 0.0,
+          "none": 1.0,
+          "evaluation": 0.0
+        }
+      },
+      "negative_conflict": {
+        "type": "noul",
+        "noul": 0.96
+      },
+      "evidence_readiness": {
+        "type": "choice",
+        "choice": "abstract_enough",
+        "confidence": 0.66,
+        "probabilities": {
+          "needs_full_text": 0.0,
+          "insufficient": 0.22,
+          "abstract_enough": 0.78
+        }
+      },
+      "support_sentence": {
+        "type": "choice",
+        "choice": "s4",
+        "confidence": 0.43,
+        "probabilities": {
+          "none": 0.12,
+          "s10": 0.09,
+          "s6": 0.01,
+          "s9": 0.23,
+          "s8": 0.0,
+          "s4": 0.49,
+          "s1": 0.0,
+          "s5": 0.06,
+          "s2": 0.0,
+          "s7": 0.0,
+          "s3": 0.0
+        }
+      },
+      "analogy_status": {
+        "type": "choice",
+        "choice": "not_analogy",
+        "confidence": 0.91,
+        "probabilities": {
+          "insufficient": 0.01,
+          "not_analogy": 0.92,
+          "direct": 0.01,
+          "adapt": 0.06
+        }
+      },
+      "transfer_boundary": {
+        "type": "choice",
+        "choice": "do_not_transfer",
+        "confidence": 0.94,
+        "probabilities": {
+          "do_not_transfer": 0.96,
+          "needs_adaptation": 0.0,
+          "insufficient": 0.04,
+          "direct_borrow": 0.0
+        }
+      }
+    },
+    "questions": {
+      "layer": {
+        "type": "choice",
+        "instructions": "Classify the candidate's role against `profile` using only the public title and English abstract in `candidate`. Choose insufficient whenever the abstract cannot support the judgment.",
+        "criteria": {
+          "core": "Directly advances the profile's central research question, object, or method.",
+          "adjacent": "Useful neighboring method, evidence, or framing without being a direct match.",
+          "cross_domain": "A potentially transferable research structure from another domain; it requires later human review.",
+          "canonical": "A foundational or historical work useful for context, not a current direct match.",
+          "exclude": "Outside the profile or contradicted by its negative axes.",
+          "insufficient": "The title and abstract do not support a bounded layer judgment."
+        }
+      },
+      "fit": {
+        "type": "score",
+        "instructions": "Rate direct fit to `profile` using only `candidate`. This is not a paper-quality score.",
+        "criteria": [
+          "0: no supported fit or insufficient information",
+          "1: weak or indirect fit",
+          "2: clear useful fit",
+          "3: direct, high-value fit to a defined positive axis"
+        ]
+      },
+      "match_axis": {
+        "type": "choice",
+        "instructions": "Which one positive profile axis is best supported by `candidate`? Choose none when no axis is supported.",
+        "criteria": {
+          "cell_models": "Reusable foundation models for single-cell transcriptomics, perturbation response prediction, and cell representations.",
+          "evaluation": "Rigorous evaluation of generalization, uncertainty and simple baselines for predictive cell models.",
+          "transfer": "Transferable uncertainty-aware experimental design and active learning loops from protein engineering into cell perturbation research.",
+          "none": "No positive profile axis is supported by the provided title and abstract."
+        }
+      },
+      "negative_conflict": {
+        "type": "noul",
+        "instructions": {
+          "question": "Does `candidate` materially conflict with any configured negative profile axis?",
+          "negative_axes": [
+            {
+              "id": "off_scope",
+              "description": "Descriptive disease or organ cell atlases without a reusable predictive method, model benchmark, or perturbation modeling contribution."
+            }
+          ]
+        },
+        "criteria": {
+          "true": "A stated negative axis is materially implicated.",
+          "false": "No material negative-axis conflict is supported by the abstract."
+        }
+      },
+      "evidence_readiness": {
+        "type": "choice",
+        "instructions": "Is the English abstract sufficient for a limited recommendation rationale? This does not verify methods, results, identities, or factual claims.",
+        "criteria": {
+          "abstract_enough": "The abstract supports only a bounded relevance statement.",
+          "needs_full_text": "The candidate may be relevant, but the required rationale needs source text beyond the abstract.",
+          "insufficient": "The abstract does not support a relevance statement."
+        }
+      },
+      "support_sentence": {
+        "type": "choice",
+        "instructions": "Choose the one sentence from `candidate.abstract_sentences` that best supports the bounded relevance decision. Choose none if no sentence does.",
+        "criteria": {
+          "s1": "Ovarian aging leads to diminished fertility, dysregulated endocrine signaling and increased chronic disease burden.",
+          "s2": "These effects begin to emerge long before follicular exhaustion.",
+          "s3": "Female humans experience a sharp decline in fertility around 35 years of age, which corresponds to declines in oocyte quality.",
+          "s4": "Despite a growing body of work, the field lacks a comprehensive cellular map of the transcriptomic changes in the aging mouse ovary to identify early drivers of ovarian decline.",
+          "s5": "To fill this gap we performed single-cell RNA sequencing on ovarian tissue from young (3-month-old) and reproductively aged (9-month-old) mice.",
+          "s6": "Our analysis revealed a doubling of immune cells in the aged ovary, with lymphocyte proportions increasing the most, which was confirmed by flow cytometry.",
+          "s7": "We also found an age-related downregulation of collagenase pathways in stromal fibroblasts, which corresponds to rises in ovarian fibrosis.",
+          "s8": "Follicular cells displayed stress-response, immunogenic and fibrotic signaling pathway inductions with aging.",
+          "s9": "This report provides critical insights into mechanisms responsible for ovarian aging phenotypes.",
+          "s10": "The data can be explored interactively via a Shiny-based web application.",
+          "none": "No sentence directly supports a bounded recommendation at abstract level."
+        }
+      },
+      "analogy_status": {
+        "type": "choice",
+        "instructions": "Assess only whether `candidate` exposes a potentially transferable research structure. This never authorizes automatic cross-domain recommendation.",
+        "criteria": {
+          "direct": "A comparable structure is directly visible in the abstract.",
+          "adapt": "There may be an analogy, but domain adaptation is essential.",
+          "not_analogy": "No comparable structure is supported.",
+          "insufficient": "The abstract cannot support this judgment."
+        }
+      },
+      "transfer_boundary": {
+        "type": "choice",
+        "instructions": "If an analogy exists, which transfer boundary is supported by the abstract? This is a review routing signal, not a factual conclusion.",
+        "criteria": {
+          "direct_borrow": "The abstract supports considering a directly analogous approach.",
+          "needs_adaptation": "The abstract supports an analogy but leaves material adaptation work.",
+          "do_not_transfer": "The abstract does not support transfer.",
+          "insufficient": "The abstract cannot support a transfer boundary."
+        }
+      }
+    }
+  },
+  {
+    "answers": {
+      "layer": {
+        "type": "choice",
+        "choice": "cross_domain",
+        "confidence": 0.86,
+        "probabilities": {
+          "exclude": 0.01,
+          "cross_domain": 0.89,
+          "insufficient": 0.0,
+          "canonical": 0.0,
+          "core": 0.05,
+          "adjacent": 0.05
+        }
+      },
+      "fit": {
+        "type": "score",
+        "score": 1.6,
+        "confidence": 0.29,
+        "legend": {
+          "0": "0: no supported fit or insufficient information",
+          "1": "1: weak or indirect fit",
+          "2": "2: clear useful fit",
+          "3": "3: direct, high-value fit to a defined positive axis"
+        },
+        "probabilities": {
+          "0": 0.05,
+          "1": 0.52,
+          "2": 0.21,
+          "3": 0.22
+        }
+      },
+      "match_axis": {
+        "type": "choice",
+        "choice": "transfer",
+        "confidence": 0.79,
+        "probabilities": {
+          "transfer": 0.84,
+          "cell_models": 0.0,
+          "none": 0.16,
+          "evaluation": 0.0
+        }
+      },
+      "negative_conflict": {
+        "type": "noul",
+        "noul": 0.04
+      },
+      "evidence_readiness": {
+        "type": "choice",
+        "choice": "abstract_enough",
+        "confidence": 0.64,
+        "probabilities": {
+          "abstract_enough": 0.76,
+          "insufficient": 0.22,
+          "needs_full_text": 0.02
+        }
+      },
+      "support_sentence": {
+        "type": "choice",
+        "choice": "s3",
+        "confidence": 0.49,
+        "probabilities": {
+          "s5": 0.02,
+          "s3": 0.55,
+          "s6": 0.01,
+          "s4": 0.08,
+          "s2": 0.0,
+          "s1": 0.03,
+          "none": 0.26,
+          "s7": 0.04
+        }
+      },
+      "analogy_status": {
+        "type": "choice",
+        "choice": "direct",
+        "confidence": 0.65,
+        "probabilities": {
+          "adapt": 0.26,
+          "direct": 0.74,
+          "insufficient": 0.0,
+          "not_analogy": 0.0
+        }
+      },
+      "transfer_boundary": {
+        "type": "choice",
+        "choice": "needs_adaptation",
+        "confidence": 0.77,
+        "probabilities": {
+          "insufficient": 0.0,
+          "needs_adaptation": 0.84,
+          "do_not_transfer": 0.02,
+          "direct_borrow": 0.14
+        }
+      }
+    },
+    "questions": {
+      "layer": {
+        "type": "choice",
+        "instructions": "Classify the candidate's role against `profile` using only the public title and English abstract in `candidate`. Choose insufficient whenever the abstract cannot support the judgment.",
+        "criteria": {
+          "core": "Directly advances the profile's central research question, object, or method.",
+          "adjacent": "Useful neighboring method, evidence, or framing without being a direct match.",
+          "cross_domain": "A potentially transferable research structure from another domain; it requires later human review.",
+          "canonical": "A foundational or historical work useful for context, not a current direct match.",
+          "exclude": "Outside the profile or contradicted by its negative axes.",
+          "insufficient": "The title and abstract do not support a bounded layer judgment."
+        }
+      },
+      "fit": {
+        "type": "score",
+        "instructions": "Rate direct fit to `profile` using only `candidate`. This is not a paper-quality score.",
+        "criteria": [
+          "0: no supported fit or insufficient information",
+          "1: weak or indirect fit",
+          "2: clear useful fit",
+          "3: direct, high-value fit to a defined positive axis"
+        ]
+      },
+      "match_axis": {
+        "type": "choice",
+        "instructions": "Which one positive profile axis is best supported by `candidate`? Choose none when no axis is supported.",
+        "criteria": {
+          "cell_models": "Reusable foundation models for single-cell transcriptomics, perturbation response prediction, and cell representations.",
+          "evaluation": "Rigorous evaluation of generalization, uncertainty and simple baselines for predictive cell models.",
+          "transfer": "Transferable uncertainty-aware experimental design and active learning loops from protein engineering into cell perturbation research.",
+          "none": "No positive profile axis is supported by the provided title and abstract."
+        }
+      },
+      "negative_conflict": {
+        "type": "noul",
+        "instructions": {
+          "question": "Does `candidate` materially conflict with any configured negative profile axis?",
+          "negative_axes": [
+            {
+              "id": "off_scope",
+              "description": "Descriptive disease or organ cell atlases without a reusable predictive method, model benchmark, or perturbation modeling contribution."
+            }
+          ]
+        },
+        "criteria": {
+          "true": "A stated negative axis is materially implicated.",
+          "false": "No material negative-axis conflict is supported by the abstract."
+        }
+      },
+      "evidence_readiness": {
+        "type": "choice",
+        "instructions": "Is the English abstract sufficient for a limited recommendation rationale? This does not verify methods, results, identities, or factual claims.",
+        "criteria": {
+          "abstract_enough": "The abstract supports only a bounded relevance statement.",
+          "needs_full_text": "The candidate may be relevant, but the required rationale needs source text beyond the abstract.",
+          "insufficient": "The abstract does not support a relevance statement."
+        }
+      },
+      "support_sentence": {
+        "type": "choice",
+        "instructions": "Choose the one sentence from `candidate.abstract_sentences` that best supports the bounded relevance decision. Choose none if no sentence does.",
+        "criteria": {
+          "s1": "Directed evolution (DE) is a powerful tool to optimize protein fitness for a specific application.",
+          "s2": "However, DE can be inefficient when mutations exhibit non-additive, or epistatic, behavior.",
+          "s3": "Here, we present Active Learning-assisted Directed Evolution (ALDE), an iterative machine learning-assisted DE workflow that leverages uncertainty quantification to explore the search space of proteins more efficiently than current DE methods.",
+          "s4": "We apply ALDE to an engineering landscape that is challenging for DE: optimization of five epistatic residues in the active site of an enzyme.",
+          "s5": "In three rounds of wet-lab experimentation, we improve the yield of a desired product of a non-native cyclopropanation reaction from 12% to 93%.",
+          "s6": "We also perform computational simulations on existing protein sequence-fitness datasets to support our argument that ALDE can be more effective than DE.",
+          "s7": "Overall, ALDE is a practical and broadly applicable strategy to unlock improved protein engineering outcomes.",
+          "none": "No sentence directly supports a bounded recommendation at abstract level."
+        }
+      },
+      "analogy_status": {
+        "type": "choice",
+        "instructions": "Assess only whether `candidate` exposes a potentially transferable research structure. This never authorizes automatic cross-domain recommendation.",
+        "criteria": {
+          "direct": "A comparable structure is directly visible in the abstract.",
+          "adapt": "There may be an analogy, but domain adaptation is essential.",
+          "not_analogy": "No comparable structure is supported.",
+          "insufficient": "The abstract cannot support this judgment."
+        }
+      },
+      "transfer_boundary": {
+        "type": "choice",
+        "instructions": "If an analogy exists, which transfer boundary is supported by the abstract? This is a review routing signal, not a factual conclusion.",
+        "criteria": {
+          "direct_borrow": "The abstract supports considering a directly analogous approach.",
+          "needs_adaptation": "The abstract supports an analogy but leaves material adaptation work.",
+          "do_not_transfer": "The abstract does not support transfer.",
+          "insufficient": "The abstract cannot support a transfer boundary."
+        }
+      }
+    }
+  }
+]
