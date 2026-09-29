@@ -34,6 +34,14 @@ def read_dotenv(path):
     return values
 
 
+def resolve_env_file(env_file=None, environ=None):
+    """Resolve the shared config path; retain the pre-rename alias for upgrades."""
+    environ = os.environ if environ is None else environ
+    return Path(env_file or environ.get("BEAR_PAPER_PICK_ENV_FILE")
+                or environ.get("BEAR_SIFT_ENV_FILE")
+                or Path(__file__).resolve().parents[1] / ".env")
+
+
 def setting(name, default=""):
-    file_values = read_dotenv(os.environ.get("BEAR_SIFT_ENV_FILE") or Path(__file__).resolve().parents[1] / ".env")
+    file_values = read_dotenv(resolve_env_file())
     return os.environ.get(name) or file_values.get(name) or default

@@ -18,6 +18,7 @@ paper-radar-data/
 
 # Local integration and development outputs
 .local-workspace.md
+bear-paper-pick-data/
 bear-sift-data/
 .venv/
 .pytest_cache/

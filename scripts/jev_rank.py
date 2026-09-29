@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Bear Sift's bounded Jev adapter.
+"""Bear Paper Pick's bounded Jev adapter.
 
 The adapter accepts only public bibliographic metadata and English abstracts. It
 does not fetch full text, generate a prose recommendation, or mutate the
@@ -56,7 +56,7 @@ RETRYABLE_STATUS = {429, 500, 502, 503, 504, 529}
 REMOTE_CARD_FIELDS = ("id", "doi", "title", "year", "venue", "abstract", "abstract_language", "abstract_sentences")
 
 
-from config import ConfigError, read_dotenv
+from config import ConfigError, read_dotenv, resolve_env_file
 
 
 class ApiError(RuntimeError):
@@ -93,7 +93,7 @@ def write_json(value, path):
 
 def load_config(env_file=None, environ=None):
     environ = os.environ if environ is None else environ
-    env_file = Path(env_file or environ.get("BEAR_SIFT_ENV_FILE") or Path(__file__).resolve().parents[1] / ".env")
+    env_file = resolve_env_file(env_file, environ)
     file_values = read_dotenv(env_file)
 
     def choose(name, default=""):
@@ -593,7 +593,7 @@ def main(argv=None):
         command.add_argument("--env-file", help="默认读取 Skill 根目录的 .env")
         command.add_argument("--timeout", type=int, default=40)
     smoke = sub.choices["smoke"]
-    smoke.add_argument("--out-dir", default="bear-sift-data/_jev-smoke", help="只保存公开的脱敏 smoke 审计记录")
+    smoke.add_argument("--out-dir", default="bear-paper-pick-data/_jev-smoke", help="只保存公开的脱敏 smoke 审计记录")
     for name in ("rank", "plan"):
         rank = sub.choices[name]
         rank.add_argument("--profile", required=True)

@@ -11,6 +11,7 @@ import unittest
 from unittest.mock import patch
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
+import config
 import fetch
 import jev_rank
 import screening
@@ -112,13 +113,36 @@ class ScreeningTests(unittest.TestCase):
             self.inputs(root, [candidate("W2"), candidate("W3")])
             env = root / "local.env"
             env.write_text("JEV_MODEL=example-pinned-model\n")
-            with patch.dict(os.environ, {"BEAR_SIFT_ENV_FILE": str(env)}, clear=True):
-                path = sift.screen(root / "candidates.json", root / "profile.json", root / "out", plan_only=True, limit=1)
-            plan = sift.read(path)
-            self.assertEqual(plan["network_calls"], 0)
-            self.assertEqual(len(plan["requests"]), 1)
-            self.assertEqual(len(plan["deferred"]), 2)
-            self.assertEqual(plan["requests"][0]["model"], "example-pinned-model")
+            for alias in ("BEAR_PAPER_PICK_ENV_FILE", "BEAR_SIFT_ENV_FILE"):
+                with self.subTest(alias=alias), patch.dict(os.environ, {alias: str(env)}, clear=True):
+                    path = sift.screen(root / "candidates.json", root / "profile.json", root / alias, plan_only=True, limit=1)
+                plan = sift.read(path)
+                self.assertEqual(plan["network_calls"], 0)
+                self.assertEqual(len(plan["requests"]), 1)
+                self.assertEqual(len(plan["deferred"]), 2)
+                self.assertEqual(plan["requests"][0]["model"], "example-pinned-model")
+
+    def test_config_rename_preserves_precedence_and_plan_matches_execution(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(jev_rank.JevClient, "request", side_effect=AssertionError("network")):
+            root = Path(tmp)
+            self.inputs(root)
+            files = {name: root / (name + ".env") for name in ("new", "legacy", "explicit")}
+            for name, path in files.items():
+                path.write_text(f"TYPESAFE_API_KEY=test\nJEV_MODEL=model-{name}\nOPENALEX_API_KEY=key-{name}\n")
+            both = {"BEAR_PAPER_PICK_ENV_FILE": str(files["new"]), "BEAR_SIFT_ENV_FILE": str(files["legacy"])}
+            cases = [
+                ("legacy", {"BEAR_SIFT_ENV_FILE": str(files["legacy"])}, None, "legacy", "legacy"),
+                ("new", both, None, "new", "new"),
+                ("explicit", both, files["explicit"], "explicit", "new"),
+                ("process", dict(both, JEV_MODEL="model-process", OPENALEX_API_KEY="key-process"), None, "process", "process"),
+            ]
+            for label, environ, explicit, model, retrieval in cases:
+                with self.subTest(case=label), patch.dict(os.environ, environ, clear=True):
+                    loaded = jev_rank.load_config(explicit)
+                    preview = sift.read(sift.screen(root / "candidates.json", root / "profile.json", root / label, plan_only=True, env_file=explicit))
+                    self.assertEqual(loaded["model"], "model-" + model)
+                    self.assertEqual(preview["requests"][0]["model"], loaded["model"])
+                    self.assertEqual(config.setting("OPENALEX_API_KEY"), "key-" + retrieval)
 
     def test_budget_skips_deferred_and_reuses_cache_across_output_revisions(self):
         with tempfile.TemporaryDirectory() as tmp:

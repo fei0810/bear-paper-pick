@@ -159,7 +159,7 @@ def render(selection, pool, profile, seeds, seen, channels, destination, packet=
     if destination.exists(): raise ValueError("输出目录已存在，请指定新的期次目录")
     by_id = {p["id"]: p for p in pool}
     chosen = [by_id[p["id"]] for p in selection["picks"]]
-    text = [f"# Bear Sift：{md(selection['line'])}", "", f"截至 {selection['as_of']}，近邻与相邻窗口自 {profile.get('selection_policy', {}).get('recent_since') or '未指定'}。推荐理由由宿主 Agent 撰写，书目字段从冻结候选记录生成；摘要只支持相关性判断。", "", "## 通道战报", ""]
+    text = [f"# Bear Paper Pick：{md(selection['line'])}", "", f"截至 {selection['as_of']}，近邻与相邻窗口自 {profile.get('selection_policy', {}).get('recent_since') or '未指定'}。推荐理由由宿主 Agent 撰写，书目字段从冻结候选记录生成；摘要只支持相关性判断。", "", "## 通道战报", ""]
     text[4:4] = ["## 筛选方式", "", md(screening.summary(packet)), ""]
     for layer, entries in channels.items():
         parts = []
@@ -274,7 +274,7 @@ def screen(pool_path, profile_path, destination, mode="jev", reason=None, limit=
         raise ValueError("筛选输出已存在，请使用新的期次或修订目录")
     if plan_only:
         if mode != "jev": raise ValueError("基础模式无需外发预览")
-        selected_env = env_file or jev_rank.os.environ.get("BEAR_SIFT_ENV_FILE") or Path(__file__).resolve().parents[1] / ".env"
+        selected_env = jev_rank.resolve_env_file(env_file)
         values = jev_rank.read_dotenv(selected_env)
         model = jev_rank.os.environ.get("JEV_MODEL") or values.get("JEV_MODEL") or jev_rank.DEFAULT_MODEL
         return jev_rank.run_plan(profile, ordered, destination, model=model, limit=limit, seen=seen)[1]

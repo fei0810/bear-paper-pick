@@ -1,10 +1,10 @@
-# Bear Sift
+# Bear Paper Pick
 
 用 Jev 沿着你的研究方向筛选论文，持续形成值得阅读的四层清单。
 
-Bear Sift 是一个面向研究者的 Agent Skill。给出少量种子论文和研究目标，它组织公开文献检索，用 Jev 判断研究方向匹配、相邻启发与跨域迁移线索，再由宿主 Agent 结合证据完成选题。输出包括阅读清单、BibTeX、Jev 摘要依据、采用说明和可追溯的已推记录。
+Bear Paper Pick 是一个面向研究者的 Agent Skill。给出少量种子论文和研究目标，它组织公开文献检索，用 Jev 判断研究方向匹配、相邻启发与跨域迁移线索，再由宿主 Agent 结合证据完成选题。输出包括阅读清单、BibTeX、Jev 摘要依据、采用说明和可追溯的已推记录。
 
-当前版本为 **1.9.0.dev1**，处于本地开发阶段，尚未发布到 GitHub。由 Paper Radar 1.8.0 演进，产品名称待最终确认，当前目录名保留为过渡入口。Claude Code 和其他 Agent 的新用户验收留待下一阶段执行。
+当前版本为 **1.9.0.dev1**，是首个公开开发版本，由 Paper Radar 1.8.0 演进。展示名为 **Bear Paper Pick**，仓库与 Skill 调用标识为 `bear-paper-pick`。源码在 [fei0810/bear-paper-pick](https://github.com/fei0810/bear-paper-pick) 持续开发；Claude Code 和其他 Agent 的新用户验收留待下一阶段，当前尚未承诺稳定版可用性。
 
 ## Jev 怎样参与推荐
 
@@ -18,17 +18,25 @@ Bear Sift 是一个面向研究者的 Agent Skill。给出少量种子论文和�
 
 运行代码只依赖 Python 标准库。开发目标为 Python 3.12 及以上；继承版本曾在 macOS 的 3.12 与 3.14 测试，新版本本轮验证记录见 [开发状态](docs/DEVELOPMENT.md)。Windows 当前要求串行写状态，尚未正式验收。不同 Agent 的安装方式与触发行为须按 [新用户验收](docs/ACCEPTANCE.md) 实测。
 
-本地开发时可直接让 Agent 阅读本仓库的 [SKILL.md](SKILL.md)。若宿主支持本地 Skill 目录，可将本目录安装为 `bear-sift`；运行包保留该目录名。Claude Code 常用 `~/.claude/skills/bear-sift/`，Codex 常用 `~/.codex/skills/bear-sift/`。不要把研究数据放入安装目录。
+先取得独立源码仓库：
 
-复制 `.env.example` 为 `.env`，自行填写 `TYPESAFE_API_KEY`。也可设置 `BEAR_SIFT_ENV_FILE` 指向仓库外的配置文件，所有脚本共用它；进程环境变量优先于文件。示例里没有可用密钥。[TypeSafe API 文档](https://docs.typesafe.ai/api)提供服务入口；API 服务费用由使用者承担，本项目不包含额度。
+```bash
+git clone https://github.com/fei0810/bear-paper-pick.git
+cd bear-paper-pick
+git rev-parse HEAD
+```
+
+记录当前提交，便于复现和反馈。开发时可直接让 Agent 阅读本仓库的 [SKILL.md](SKILL.md)。若宿主支持本地 Skill 目录，可将本目录安装为 `bear-paper-pick`；运行包保留该目录名。Claude Code 常用 `~/.claude/skills/bear-paper-pick/`，Codex 常用 `~/.codex/skills/bear-paper-pick/`。安装后，Codex 中可用 `$bear-paper-pick` 显式调用，或直接说“用 Bear Paper Pick”；具体宿主的发现与触发仍需实测。不要把研究数据放入安装目录。
+
+复制 `.env.example` 为 `.env`，自行填写 `TYPESAFE_API_KEY`。也可设置 `BEAR_PAPER_PICK_ENV_FILE` 指向仓库外的配置文件，所有脚本共用它；旧 `BEAR_SIFT_ENV_FILE` 继续兼容，新旧同时设置时优先用新名称。进程环境变量中的配置值优先于文件。示例里没有可用密钥。[TypeSafe API 文档](https://docs.typesafe.ai/api)提供服务入口；API 服务费用由使用者承担，本项目不包含额度。
 
 对 Agent 说：
 
-> 用 Bear Sift，以我提供的两篇种子建立研究线，关注我指定的问题和方法，启用 Jev，生成第一期四层阅读清单。数据放在我指定的项目目录；候选不足时说明缺额。
+> 用 Bear Paper Pick，以我提供的两篇种子建立研究线，关注我指定的问题和方法，启用 Jev，生成第一期四层阅读清单。数据放在我指定的项目目录；候选不足时说明缺额。
 
 或继续已有研究线：
 
-> 用 Bear Sift 更新这条研究线，先读当前画像和已推记录，生成本期清单，说明 Jev 判断与最终选择的差异。
+> 用 Bear Paper Pick 更新这条研究线，先读当前画像和已推记录，生成本期清单，说明 Jev 判断与最终选择的差异。
 
 工作流要求首次外发前展示输入范围：公开题名、DOI、年份、刊名、英文摘要，以及研究画像中的方向描述。画像可能透露研究意图。完整边界见 [隐私与配置](docs/PRIVACY.md)，实际命令见 [工作流](references/workflow.md)。
 
@@ -41,10 +49,10 @@ Bear Sift 是一个面向研究者的 Agent Skill。给出少量种子论文和�
 ```bash
 python3 -m unittest discover -s tests -v
 python3 scripts/check_repository.py
-python3 scripts/package_skill.py --profile runtime --output ../bear-sift-dev.tar.gz
+python3 scripts/package_skill.py --profile runtime --output ../bear-paper-pick-dev.tar.gz
 ```
 
-仓库的 GitHub Actions 仅配置离线检查，尚未在线执行。真实服务测试、新用户验收和公开发布由后续维护者按 [验收计划](docs/ACCEPTANCE.md)执行。参与开发先读 [CONTRIBUTING.md](CONTRIBUTING.md)；Agent 接手先读 [AGENTS.md](AGENTS.md)。
+GitHub Actions 检查 Linux、macOS 与 Python 3.12、3.14 的离线回归和仓库清单；当前验证结果见 [开发状态](docs/DEVELOPMENT.md)。真实服务测试、新用户验收和稳定版发布按 [验收计划](docs/ACCEPTANCE.md)执行。参与开发先读 [CONTRIBUTING.md](CONTRIBUTING.md)；Agent 接手先读 [AGENTS.md](AGENTS.md)。
 
 ## 许可
 

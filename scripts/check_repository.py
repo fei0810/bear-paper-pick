@@ -37,7 +37,7 @@ def main():
             if name not in public:
                 errors.append(f"Tracked file outside public manifest: {name}")
     entry = (ROOT / "SKILL.md").read_text()
-    if not entry.startswith("---\nname: bear-sift\ndescription:"):
+    if not entry.startswith("---\nname: bear-paper-pick\ndescription:"):
         errors.append("Skill frontmatter name/description mismatch")
     if not re.fullmatch(r"\d+\.\d+\.\d+(?:\.dev\d+)?\n", (ROOT / "VERSION").read_text()):
         errors.append("Invalid VERSION")

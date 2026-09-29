@@ -1,4 +1,4 @@
-# Bear Sift 开发入口
+# Bear Paper Pick 开发入口
 
 继续开发先读 [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md) 的当前状态、已确认决定和下一步。运行 Skill 读 [SKILL.md](SKILL.md)；执行跨 Agent 新用户验收读 [docs/ACCEPTANCE.md](docs/ACCEPTANCE.md)。本机研究项目路径若已配置，保存在被 Git 忽略的 `.local-workspace.md`。
 
@@ -10,4 +10,4 @@ Jev 是产品主流程的核心筛选引擎。保持默认 review、可追溯输
 
 代码变更复用 `python3 -m unittest discover -s tests -v` 与 `python3 scripts/check_repository.py`。指令变更还需检验真实 Agent 行为；记录宿主与版本、输入、产出、失败和复测。本地回归、在线服务和新用户验收分别报告。
 
-当前用户要求只建本地仓库，未授权本轮创建远程仓库或公开发布。后续有明确新授权时以新授权为准。文档用完整段落组织，维护当前决定，历史事实只放在开发记录中，不让旧说明覆盖当前行为。
+维护者已确认 Bear Paper Pick 名称并授权推送首个 GitHub 开发版本。稳定版 Release 与后续远程发布按用户当次任务范围执行，新用户验收仍留给后续 Claude Code 和其他 Agent。文档用完整段落组织，维护当前决定，历史事实只放在开发记录中，不让旧说明覆盖当前行为。

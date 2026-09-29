@@ -5,7 +5,7 @@
 ## 画像与取数
 
 ```bash
-LINE=../bear-sift-data/demo
+LINE=../bear-paper-pick-data/demo
 mkdir -p "$LINE"
 python3 scripts/fetch.py work W4392168151
 # 核对真实来源后，将种子的 W 号与 DOI 写入 "$LINE/seeds.txt"。

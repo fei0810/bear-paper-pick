@@ -142,7 +142,7 @@ def pick_evidence(pick, packet):
 
 
 def review_markdown(packet):
-    text = ["# Bear Sift 筛选审阅", "", summary(packet), "",
+    text = ["# Bear Paper Pick 筛选审阅", "", summary(packet), "",
             "按下面的顺序审阅。最终选择仅填写候选 ID、层、理由和必要的复核说明；Jev 分数不代表论文质量。", ""]
     if packet["mode"] == "jev":
         for record in packet["jev_run"]["records"]:

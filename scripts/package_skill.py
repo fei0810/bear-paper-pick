@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Build a bear-sift archive from an explicit allowlist.
+"""Build a bear-paper-pick archive from an explicit allowlist.
 
 Only the listed paths are shipped. Every file is scanned for credential-like
 lines before anything is written, symlinks are refused, and tar metadata is
@@ -10,8 +10,8 @@ Profiles:
   review   runtime + tests, evaluation and design documents for an independent reviewer
 
 Usage:
-  python3 scripts/package_skill.py --output ../bear-sift-dev.tar.gz
-  python3 scripts/package_skill.py --profile review --output /tmp/bear-sift-review.tar.gz
+  python3 scripts/package_skill.py --output ../bear-paper-pick-dev.tar.gz
+  python3 scripts/package_skill.py --profile review --output /tmp/bear-paper-pick-review.tar.gz
 """
 import argparse
 import gzip
@@ -20,7 +20,7 @@ import tarfile
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-ARCNAME = "bear-sift"
+ARCNAME = "bear-paper-pick"
 RUNTIME_FILES = [
     "SKILL.md", "README.md", "agents/openai.yaml", "VERSION", "LICENSE", "NOTICE.md", ".env.example", ".gitignore",
     "docs/PRIVACY.md", "docs/ACCEPTANCE.md", "docs/DEVELOPMENT.md", "AGENTS.md", "CLAUDE.md", "CONTRIBUTING.md", "CHANGELOG.md",

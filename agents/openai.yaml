@@ -1,4 +1,4 @@
 interface:
-  display_name: "Bear Sift"
+  display_name: "Bear Paper Pick"
   short_description: "以 Jev 按研究方向持续筛选论文，生成有依据的四层阅读清单"
-  default_prompt: "用 $bear-sift 更新我的研究线，让 Jev 筛选候选并生成四层阅读清单。"
+  default_prompt: "用 $bear-paper-pick 更新我的研究线，让 Jev 筛选候选并生成四层阅读清单。"

@@ -42,7 +42,7 @@ class PackageTests(unittest.TestCase):
                 names = sorted(archive.getnames())
                 members = archive.getmembers()
         self.assertEqual(count, len(package_skill.RUNTIME_FILES))
-        self.assertEqual(names, sorted("bear-sift/" + path for path in package_skill.RUNTIME_FILES))
+        self.assertEqual(names, sorted("bear-paper-pick/" + path for path in package_skill.RUNTIME_FILES))
         self.assertTrue(all(m.uname == "" and m.uid == 0 and m.mtime == 0 for m in members))
 
     def test_env_variants_inside_allowlisted_dirs_are_refused(self):

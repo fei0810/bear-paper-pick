@@ -1,16 +1,16 @@
 ---
-name: bear-sift
+name: bear-paper-pick
 description: 基于已确认种子论文持续追踪研究方向，生成四层文献推荐、可复查的 digest、BibTeX 和已推记录；以 Jev 英文摘要判断作为核心筛选步骤。用于建立论文雷达、追更某条研究线、更新本期推荐或回溯该线关键文献。一次性检索、综述和普通单篇精读不启动完整雷达流程。
 license: Apache-2.0
 ---
 
-# Bear Sift 文献筛选
+# Bear Paper Pick 文献筛选
 
 本工具交付核心近邻、相邻启发、跨域同构和经典回溯四层推荐。Python 脚本负责取数、状态、机械校验和书目渲染；宿主 Agent 负责语义分层、推荐理由和跨域判断。Jev 是默认的语义筛选引擎，宿主 Agent 根据其结果完成选题并解释分歧。公开 API 元数据和摘要均不是全文证据。
 
 ## 进入已有研究线
 
-先读用户指定目录中的 `profile_snapshot.json`、`seeds.txt`、`seen.json` 和最近一期 `digest/`。已有目录（包括旧 paper-radar-data）保持原位。新线默认使用当前项目的 `bear-sift-data/<线名>/`，不写入安装目录。多条线无法消歧时列出线名；不要默认全部执行。
+先读用户指定目录中的 `profile_snapshot.json`、`seeds.txt`、`seen.json` 和最近一期 `digest/`。已有目录（包括旧 paper-radar-data）保持原位。新线默认使用当前项目的 `bear-paper-pick-data/<线名>/`，不写入安装目录。多条线无法消歧时列出线名；不要默认全部执行。
 
 `profile_snapshot.json` 是本期机器筛选规则的事实来源，`seeds.txt` 补充经确认的多版本标识，`seen.json` 是已推和逐条反馈的事实来源。`profile.md` 只保存背景、用户反馈原话和变更说明，不声称由脚本自动学习或同步。修改画像时说明变化并保留旧快照。
 
